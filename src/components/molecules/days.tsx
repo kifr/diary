@@ -1,21 +1,25 @@
 // modules
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // component
 import { Day } from '../atoms/day';
 
+// context
+import { ctx } from '../pages/top';
+
 interface dayType {
   month: string;
+  isdisplayMonth: boolean;
   date: number;
-  isFirstDate: boolean
-  isCrrMonth: boolean;
+  isFirstDay: boolean
+  isToday: boolean;
   title: string;
   body: string;
 }
 
 enum Month {
-  'Jan.',
+  'Jan.' = 1,
   'Feb.',
   'Mar.',
   'Apr.',
@@ -30,27 +34,32 @@ enum Month {
 }
 
 export const Days = () => {
-  const dt = new Date();
-  const year = dt.getFullYear();
-  const month = dt.getMonth() - 1;
-  const dates = (new Date(year, month + 1, 0)).getDate();
-  const startDay = (new Date(year, month).getDay());
+  const { displayPeriod, thisYear, thisMonth, today } = useContext(ctx);
+  const { displayMonth, displayYear } = displayPeriod;
+  const displayDates = (new Date(displayYear, displayMonth, 0)).getDate();
+  const startDay = (new Date(displayYear, displayMonth - 1).getDay());
 
   const createDayObj = (RequestMonth: number, RequestDate: number): dayType => {
 
     // TODO: implement fetch functions;
 
     // TODO: enumの範疇を超えた場合にundefinedになる問題を解決
-    let tarMonth: number;
-    if (Month[RequestMonth] === undefined && RequestMonth === -1) tarMonth = 11;
-    else if (Month[RequestMonth] === undefined && RequestMonth === 1) tarMonth = 1;
-    else tarMonth = RequestMonth;
+    let targetMonth: number;
+    if (RequestMonth === 0) targetMonth = 12;
+    else if (RequestMonth === 13) targetMonth = 1;
+    else targetMonth = RequestMonth;
+
+    let isToday: boolean = false;
+    if (thisYear === displayYear && thisMonth === displayMonth && RequestDate === today) {
+      isToday = true
+    }
 
     const day = {
-      month: Month[tarMonth],
+      month: Month[targetMonth],
+      isdisplayMonth: RequestMonth === displayMonth ? true : false,
+      isFirstDay: RequestDate === 1 ? true : false,
       date: RequestDate,
-      isFirstDate: RequestDate === 1 ? true : false,
-      isCrrMonth: RequestMonth === month ? true : false,
+      isToday,
       title: 'aaaa', // fetch via API
       body: 'bbbb' // fetch via API
     }
@@ -60,45 +69,41 @@ export const Days = () => {
 
   const calendar: dayType[] = [];
   let index = 0;
-
   // prev month
-  const prevMonthDates = (new Date(year, month, 0).getDate());
+  const prevMonthDates = (new Date(displayYear, displayMonth - 1, 0).getDate());
   const prevMonthStartDate = prevMonthDates - (startDay - 1);
   for (let i = 0; i < startDay; i++) {
-    calendar[index] = createDayObj(month - 1, prevMonthStartDate + i);
+    calendar[index] = createDayObj(displayMonth - 1, prevMonthStartDate + i);
     index++;
   }
 
   // crr month
-  for (let i = 1; i <= dates; i++) {
-    calendar[index] = createDayObj(month, i);
+  for (let i = 1; i <= displayDates; i++) {
+    calendar[index] = createDayObj(displayMonth, i);
     index++;
   }
 
   // next month
-  let crrMonthWeeks = Math.ceil((startDay + dates) / 7);
-  let restDays = crrMonthWeeks * 7 - calendar.length;
+  let displayMonthWeeks = Math.ceil((startDay + displayDates) / 7);
+  let restDays = displayMonthWeeks * 7 - calendar.length;
   for (let i = 1; i <= restDays; i++) {
-    calendar[index] = createDayObj(month + 1, i);
+    calendar[index] = createDayObj(displayMonth + 1, i);
     index++;
   }
 
-  console.log('カレンダー作成が実行されました。');
-
-
   return (
     <>
-      {month + 1} / {year}
       <StyledUl>
         {
           calendar.map((day, i) => {
-            if (i === 0) day.isFirstDate = true;
+            if (i === 0) day.isFirstDay = true;
             return (
               <Day key={i}
                 month={day.month}
+                isdisplayMonth={day.isdisplayMonth}
                 date={day.date}
-                isFirstDate={day.isFirstDate}
-                isCrrMonth={day.isCrrMonth}
+                isFirstDay={day.isFirstDay}
+                isToday={day.isToday}
                 title={day.title}
                 body={day.body}
               />

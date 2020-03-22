@@ -7,21 +7,22 @@ import SubjectIcon from '@material-ui/icons/Subject';
 
 interface DayProps {
   month: string;
+  isdisplayMonth: boolean;
   date: number;
-  isFirstDate: boolean;
-  isCrrMonth: boolean;
+  isFirstDay: boolean;
+  isToday: boolean;
   title: string;
   body: string;
 }
 
 export const Day: React.FC<DayProps> = props => {
   return (
-    <StyledLi isCrrMonth={props.isCrrMonth}>
+    <StyledLi isdisplayMonth={props.isdisplayMonth}>
       <StyledButton title={props.title}>
-        {props.isFirstDate &&
+        {props.isFirstDay &&
           <StyledMonth>{props.month}</StyledMonth>
         }
-        <StyledDate>{props.date}</StyledDate>
+        <StyledDate isToday={props.isToday}>{props.date}</StyledDate>
         {props.title ?
           <StyledSubjectIcon className="dayIcon" /> :
           <StyledAddIcon className="dayIcon" />
@@ -31,12 +32,12 @@ export const Day: React.FC<DayProps> = props => {
   );
 };
 
-const StyledLi = styled.li<{ isCrrMonth: boolean; }>`
+const StyledLi = styled.li<{ isdisplayMonth: boolean; }>`
   width: calc(100% / 7);
   position: relative;
   padding: 2px;
   box-sizing: border-box;
-  opacity: ${props => props.isCrrMonth ? 1 : .4};
+  opacity: ${props => props.isdisplayMonth ? 1 : .4};
 `;
 
 const StyledButton = styled(Button) <{ title: string; }>`
@@ -57,12 +58,13 @@ const StyledMonth = styled.span`
   text-transform: initial;
 `;
 
-const StyledDate = styled.span`
+const StyledDate = styled.span<{ isToday: boolean }>`
   position: absolute;
   top: 1%;
   right: 10%;
   font-size: 1rem;
-  color: #555;
+  font-weight: ${props => props.isToday ? "bold" : "normal"};
+  color: ${props => props.isToday ? "#f00" : "#555"};
 `;
 
 const StyledSubjectIcon = styled(SubjectIcon)`

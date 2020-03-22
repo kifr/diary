@@ -18,6 +18,21 @@ interface PeriodType {
   isDiary: boolean
 }
 
+const fetchResult: number[] = [
+  12019,
+  32019,
+  52019,
+  12020,
+  22020,
+  32020
+]; // fetch via API
+
+const checkIsDiary = (targetValue: number): boolean => {
+  return fetchResult.some((value) => {
+    return value === targetValue;
+  });
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -33,16 +48,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Period = () => {
   const classes = useStyles();
-
-  const fetchResult: number[] = [
-    12019,
-    32019,
-    52019,
-    12020,
-    22020,
-    32020
-  ]; // fetch via API
-
   const { displayPeriod, setDisplayPeriod, thisYear, thisMonth } = useContext(ctx);
   const { displayMonth, displayYear } = displayPeriod;
 
@@ -52,13 +57,6 @@ export const Period = () => {
   const initialYear = displayYear;
   let reverse = false;
   let periods: PeriodType[] = [];
-
-  const checkIsDiary = (targetValue: number): boolean => {
-    return fetchResult.some((value) => {
-      return value === targetValue;
-    });
-  }
-
   for (let i = 0; i < 12; i++) {
     periods.push({
       value: `${targetMonth}-${targetYear}`,

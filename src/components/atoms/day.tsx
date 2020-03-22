@@ -1,9 +1,12 @@
 // modules
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import SubjectIcon from '@material-ui/icons/Subject';
+
+// context
+import { ctx } from '../pages/top';
 
 interface DayProps {
   month: string;
@@ -16,9 +19,16 @@ interface DayProps {
 }
 
 export const Day: React.FC<DayProps> = props => {
+  const { setEditOpen, displayPeriod, setDisplayDate } = useContext(ctx);
+  const { displayMonth } = displayPeriod;
+
+  const handleDiaryEdit = (date: number) => {
+    setDisplayDate(`${displayMonth}-${date}`);
+    setEditOpen(true);
+  }
   return (
     <StyledLi isdisplayMonth={props.isdisplayMonth}>
-      <StyledButton title={props.title}>
+      <StyledButton title={props.title} onClick={() => handleDiaryEdit(props.date)}>
         {props.isFirstDay &&
           <StyledMonth>{props.month}</StyledMonth>
         }

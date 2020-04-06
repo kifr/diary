@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 // component
 import { Calendar } from '../organisms/calendar';
+import { ModalContents } from '../molecules/modalContents';
 
 export const ctx: any = React.createContext({});
 const dt = new Date();
@@ -15,7 +16,8 @@ const today = (new Date()).getDate();
 export const Top = () => {
   const [displayPeriod, setDisplayPeriod] = useState({ displayMonth, displayYear });
   const [displayDate, setDisplayDate] = useState('');
-  const [editOpen, setEditOpen] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [editing, setEditing] = useState(false);
   ctx.displayPeriod = displayPeriod;
   ctx.setDisplayPeriod = setDisplayPeriod;
   ctx.displayDate = displayDate;
@@ -23,12 +25,15 @@ export const Top = () => {
   ctx.thisYear = thisYear;
   ctx.thisMonth = thisMonth;
   ctx.today = today;
-  ctx.editOpen = editOpen;
-  ctx.setEditOpen = setEditOpen;
+  ctx.modal = modal;
+  ctx.setModal = setModal;
+  ctx.editing = editing;
+  ctx.setEditing = setEditing;
 
   return (
     <ctx.Provider value={ctx}>
       <Calendar />
+      <ModalContents />
     </ctx.Provider>
   );
 };

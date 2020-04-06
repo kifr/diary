@@ -1,14 +1,12 @@
 // modules
 import React, { useContext } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import DialogContent from '@material-ui/core/DialogContent';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import styled from 'styled-components';
 
 // context
 import { ctx } from '../pages/top';
+
+//constants
+import colors from '../../constants/colors';
 
 interface PeriodType {
   value: string,
@@ -33,21 +31,7 @@ const checkIsDiary = (targetValue: number): boolean => {
   });
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      display: 'inline-flex',
-      flexWrap: 'wrap',
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 200,
-    },
-  }),
-);
-
 export const Period = () => {
-  const classes = useStyles();
   const { displayPeriod, setDisplayPeriod, thisYear, thisMonth } = useContext(ctx);
   const { displayMonth, displayYear } = displayPeriod;
 
@@ -109,26 +93,31 @@ export const Period = () => {
   }
 
   return (
-    <DialogContent>
-      <form className={classes.container}>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="period-label">Period</InputLabel>
-          <Select
-            id="period-select"
-            labelId="period-label"
-            value={`${displayMonth}-${displayYear}`}
-            onChange={e => handleValue(e.target.value)}
-          >
-            {
-              periods.map((period, i) => {
-                return (
-                  <MenuItem key={i} value={period.value}>{period.label}</MenuItem>
-                )
-              })
-            }
-          </Select>
-        </FormControl>
-      </form>
-    </DialogContent>
+    <StyledSelect
+      id="period-select"
+      value={`${displayMonth}-${displayYear}`}
+      onChange={e => handleValue(e.target.value)}
+    >
+      {
+        periods.map((period, i) => {
+          return (
+            <option key={i} value={period.value}>{period.label}</option>
+          )
+        })
+      }
+    </StyledSelect>
   );
 };
+
+const StyledSelect = styled.select`
+  border: none;
+  color: ${colors.PRIMARY};
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
+              3px 3px 5px rgba(0, 0, 0, 0.1);
+  background: ${colors.BACKGROUND};
+  width: 10rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  text-indent: 0.5rem;
+  outline: none;
+`;

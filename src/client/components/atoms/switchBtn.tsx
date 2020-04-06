@@ -1,11 +1,14 @@
 // modules
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import '@fortawesome/fontawesome-free/js/fontawesome';
+import '@fortawesome/fontawesome-free/js/solid';
 
 // context
 import { ctx } from '../pages/top';
+
+//constants
+import colors from '../../constants/colors';
 
 interface SwitchBtnProps {
   switchTo: 'prev' | 'next';
@@ -47,25 +50,33 @@ export const SwitchBtn: React.FC<SwitchBtnProps> = props => {
 
   return (
     <StyledButton onClick={handleSwitch} disabled={disabled}>
-      <StyledIcon direction={props.switchTo} />
+      {props.switchTo === 'prev' ?
+        <i className="fas fa-chevron-left"></i> :
+        <i className="fas fa-chevron-right"></i>
+      }
     </StyledButton>
   );
 };
 
-const StyledButton = styled(Button) <{ disabled: boolean }>`
-  && {
-    min-width: 45px;
-    min-height: 45px;
-    padding: 0;
-    border-radius: 30px;
-    opacity: ${props => props.disabled ? .4 : 1};
-  }
-`;
-
-const StyledIcon = styled(KeyboardArrowDownIcon) <{ direction: 'prev' | 'next'; }>`
-  && {
-    color: #555;
-    font-size: 2rem;
-    transform: rotate(${props => props.direction === 'prev' ? '90deg' : '-90deg'});
+const StyledButton = styled.button`
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 2.5rem;
+  font-size: 1rem;
+  text-align: center;
+  margin: 15px;
+  cursor: pointer;
+  border: none;
+  color: ${colors.PRIMARY};
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
+              3px 3px 5px rgba(0, 0, 0, 0.1);
+  background: ${colors.BACKGROUND};
+  outline: none;
+  &:active,
+  &:disabled {
+    box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 1),
+                inset 3px 3px 5px rgba(0, 0, 0, 0.1);
+    color: rgba(0, 196, 109, 0.3);
+    cursor: initial;
   }
 `;

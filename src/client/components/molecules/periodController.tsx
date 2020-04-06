@@ -19,6 +19,7 @@ export const PeriodController: React.FC = () => {
 const StyledSection = styled.section`
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 50%;
   margin: 0 auto;
 `;

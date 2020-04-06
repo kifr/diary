@@ -24,5 +24,6 @@ const StyledUl = styled.ul`
 const StyledLi = styled.li<{ color?: string; }>`
   width: calc(100% / 7);
   padding: 15px 0;
-  color: ${props => props.color ? props.color : 'inherit'}
+  color: ${props => props.color ? props.color : 'inherit'};
+  user-select: none;
 `;

@@ -3,16 +3,16 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // component
-import { Day } from '../atoms/day';
+import { Day } from '../atoms/date';
 
 // context
 import { ctx } from '../pages/top';
 
-interface dayType {
+interface datesType {
   month: string;
-  isdisplayMonth: boolean;
+  isDisplayMonth: boolean;
   date: number;
-  isFirstDay: boolean
+  isFirstDate: boolean
   isToday: boolean;
   title: string;
   body: string;
@@ -33,13 +33,13 @@ enum Month {
   'Dec.'
 }
 
-export const Days = () => {
+export const Dates = () => {
   const { displayPeriod, thisYear, thisMonth, today } = useContext(ctx);
   const { displayMonth, displayYear } = displayPeriod;
   const displayDates = (new Date(displayYear, displayMonth, 0)).getDate();
   const startDay = (new Date(displayYear, displayMonth - 1).getDay());
 
-  const createDayObj = (RequestMonth: number, RequestDate: number): dayType => {
+  const createDayObj = (RequestMonth: number, RequestDate: number): datesType => {
 
     // TODO: implement fetch functions;
 
@@ -56,8 +56,8 @@ export const Days = () => {
 
     const day = {
       month: Month[targetMonth],
-      isdisplayMonth: RequestMonth === displayMonth ? true : false,
-      isFirstDay: RequestDate === 1 ? true : false,
+      isDisplayMonth: RequestMonth === displayMonth ? true : false,
+      isFirstDate: RequestDate === 1 ? true : false,
       date: RequestDate,
       isToday,
       title: 'aaaa', // fetch via API
@@ -67,27 +67,27 @@ export const Days = () => {
     return day;
   }
 
-  const calendar: dayType[] = [];
+  const dates: datesType[] = [];
   let index = 0;
   // prev month
   const prevMonthDates = (new Date(displayYear, displayMonth - 1, 0).getDate());
   const prevMonthStartDate = prevMonthDates - (startDay - 1);
   for (let i = 0; i < startDay; i++) {
-    calendar[index] = createDayObj(displayMonth - 1, prevMonthStartDate + i);
+    dates[index] = createDayObj(displayMonth - 1, prevMonthStartDate + i);
     index++;
   }
 
   // crr month
   for (let i = 1; i <= displayDates; i++) {
-    calendar[index] = createDayObj(displayMonth, i);
+    dates[index] = createDayObj(displayMonth, i);
     index++;
   }
 
   // next month
   let displayMonthWeeks = Math.ceil((startDay + displayDates) / 7);
-  let restDays = displayMonthWeeks * 7 - calendar.length;
+  let restDays = displayMonthWeeks * 7 - dates.length;
   for (let i = 1; i <= restDays; i++) {
-    calendar[index] = createDayObj(displayMonth + 1, i);
+    dates[index] = createDayObj(displayMonth + 1, i);
     index++;
   }
 
@@ -95,14 +95,14 @@ export const Days = () => {
     <>
       <StyledUl>
         {
-          calendar.map((day, i) => {
-            if (i === 0) day.isFirstDay = true;
+          dates.map((day, i) => {
+            if (i === 0) day.isFirstDate = true;
             return (
               <Day key={i}
                 month={day.month}
-                isdisplayMonth={day.isdisplayMonth}
+                isDisplayMonth={day.isDisplayMonth}
                 date={day.date}
-                isFirstDay={day.isFirstDay}
+                isFirstDate={day.isFirstDate}
                 isToday={day.isToday}
                 title={day.title}
                 body={day.body}

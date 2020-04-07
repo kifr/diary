@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  application:
+    image: node:latest
+    container_name: diary_application
+    environment:
+      - MONGO_DATABASE=mongodb://database:27017/diary
+    ports:
+      - 80:3000
+    links:
+      - database
+    depends_on:
+      - database
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
+    tty: true
+
+  database:
+    image: mongo:latest
+    container_name: diary_mongoDB
+    ports:
+      - 27017:27017
+    command:
+      - mongod
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - mongo_db:/data/db
+
+volumes:
+  mongo_db:

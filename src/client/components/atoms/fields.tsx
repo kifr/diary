@@ -8,20 +8,51 @@ import colors from '../../constants/colors';
 interface FieldsType {
   name: string;
   placeholder?: string;
+  onChange?: any;
+  value: string;
 }
 
 export const TextBox: React.FC<FieldsType> = props => {
+  const handleChange = (e: React.SyntheticEvent<any, Event>) => {
+    if (!props.onChange) {
+      e.preventDefault();
+      return false;
+    }
+
+    props.onChange(e);
+  }
+
   return (
     <StyledLabel>
-      <StyledInput type="text" name={props.name} placeholder={props.placeholder} />
+      <StyledInput
+        type="text"
+        name={props.name}
+        placeholder={props.placeholder}
+        onChange={handleChange}
+        value={props.value}
+      />
     </StyledLabel>
   );
 };
 
 export const TextArea: React.FC<FieldsType> = props => {
+  const handleChange = (e: React.SyntheticEvent<any, Event>) => {
+    if (!props.onChange) {
+      e.preventDefault();
+      return false;
+    }
+
+    props.onChange(e);
+  }
+
   return (
     <StyledLabel>
-      <StyledTextarea name={props.name} placeholder={props.placeholder} />
+      <StyledTextarea
+      name={props.name}
+      placeholder={props.placeholder}
+      onChange={handleChange}
+      value={props.value}
+    />
     </StyledLabel>
   );
 };

@@ -18,6 +18,8 @@ export const Top = () => {
   const [displayDate, setDisplayDate] = useState('');
   const [modal, setModal] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [diaryTitle, setDiaryTitle] = useState('');
+  const [diaryBody, setDiaryBody] = useState('');
   ctx.displayPeriod = displayPeriod;
   ctx.setDisplayPeriod = setDisplayPeriod;
   ctx.displayDate = displayDate;
@@ -29,6 +31,10 @@ export const Top = () => {
   ctx.setModal = setModal;
   ctx.editing = editing;
   ctx.setEditing = setEditing;
+  ctx.diaryTitle = diaryTitle;
+  ctx.setDiaryTitle = setDiaryTitle;
+  ctx.diaryBody = diaryBody;
+  ctx.setDiaryBody = setDiaryBody;
 
   return (
     <ctx.Provider value={ctx}>

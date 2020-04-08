@@ -8,9 +8,7 @@ interface HeadlineType {
 }
 
 export const H1: React.FC<HeadlineType> = props => {
-  return (
-    <StyledH1 className={props.className}>{props.children}</StyledH1>
-  );
+  return <StyledH1 className={props.className}>{props.children}</StyledH1>;
 };
 
 const StyledH1 = styled.h1`
@@ -20,9 +18,7 @@ const StyledH1 = styled.h1`
 `;
 
 export const H2: React.FC<HeadlineType> = props => {
-  return (
-    <StyledH2 className={props.className}>{props.children}</StyledH2>
-  );
+  return <StyledH2 className={props.className}>{props.children}</StyledH2>;
 };
 
 const StyledH2 = styled.h2`

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // components
 import { DayOfTheWeek } from '../atoms/dayOfTheWeek';
 import { PeriodController } from '../molecules/periodController';
-import { Dates } from '../molecules/dates';
+import { Days } from '../molecules/days';
 
 export const Calendar: React.FC = () => {
   return (
@@ -13,7 +13,7 @@ export const Calendar: React.FC = () => {
       <PeriodController />
       <StyledSection>
         <DayOfTheWeek />
-        <Dates />
+        <Days />
       </StyledSection>
     </StyledCalendar>
   );

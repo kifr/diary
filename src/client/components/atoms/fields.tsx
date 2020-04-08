@@ -20,7 +20,7 @@ export const TextBox: React.FC<FieldsType> = props => {
     }
 
     props.onChange(e);
-  }
+  };
 
   return (
     <StyledLabel>
@@ -43,7 +43,7 @@ export const TextArea: React.FC<FieldsType> = props => {
     }
 
     props.onChange(e);
-  }
+  };
 
   return (
     <StyledLabel>

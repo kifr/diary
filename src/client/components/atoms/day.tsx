@@ -3,33 +3,35 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // context
-import { ctx } from '../pages/top';
+import { ctx } from '../pages/main';
 
 //constants
 import colors from '../../constants/colors';
 
 interface DateProps {
   month: string;
-  isDisplayMonth: boolean;
+  isCrrMonth: boolean;
   date: number;
   isFirstDate: boolean;
   isToday: boolean;
   title: string;
-  body: string;
 }
 
 export const Day: React.FC<DateProps> = props => {
-  const { setEditing, displayPeriod, setDisplayDate, setModal } = useContext(ctx);
-  const { displayMonth } = displayPeriod;
+  const { displayPeriod, setEditingDate, setModal } = useContext(ctx);
+  const { displayYear, displayMonth } = displayPeriod;
 
   const handleDiaryEdit = (date: number) => {
-    setDisplayDate(`${displayMonth}-${date}`);
-    setEditing(true);
+    setEditingDate({
+      year: displayYear,
+      month: displayMonth,
+      date: props.date
+    });
     setModal(true);
-  }
+  };
 
   return (
-    <StyledLi isdisplayMonth={props.isDisplayMonth}>
+    <StyledLi isCrrMonth={props.isCrrMonth}>
       <StyledButton title={props.title} onClick={() => handleDiaryEdit(props.date)}>
         {props.isFirstDate &&
           <StyledMonth>{props.month}</StyledMonth>
@@ -58,12 +60,12 @@ const StyledButton = styled.button <{ title: string; }>`
   }
 `;
 
-const StyledLi = styled.li<{ isdisplayMonth: boolean; }>`
+const StyledLi = styled.li<{ isCrrMonth: boolean; }>`
   width: calc(100% / 7);
   position: relative;
   padding: 10px;
   box-sizing: border-box;
-  opacity: ${props => props.isdisplayMonth ? 1 : .4};
+  opacity: ${props => props.isCrrMonth ? 1 : .4};
 `;
 
 const StyledMonth = styled.span`

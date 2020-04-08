@@ -2,7 +2,7 @@
   "name": "diary",
   "version": "0.2.0",
   "description": "",
-  "main": "Main.tsx",
+  "main": "index.tsx",
   "scripts": {
     "server": "nodemon src/server/server.js --exec babel-node",
     "client": "webpack-dev-server --config ./config/webpack.config.dev.js",

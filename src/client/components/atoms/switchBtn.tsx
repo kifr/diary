@@ -5,7 +5,7 @@ import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 
 // context
-import { ctx } from '../pages/top';
+import { ctx } from '../pages/main';
 
 //constants
 import colors from '../../constants/colors';
@@ -16,44 +16,41 @@ interface SwitchBtnProps {
 
 export const SwitchBtn: React.FC<SwitchBtnProps> = props => {
   const { displayPeriod, setDisplayPeriod, thisYear, thisMonth } = useContext(ctx);
-  let { displayMonth, displayYear } = displayPeriod;
+  const { displayMonth, displayYear } = displayPeriod;
 
-  let disabled = false;
-  if (displayYear === thisYear && displayMonth === thisMonth && props.switchTo === 'next') {
-    disabled = true;
-  }
+  const disabled = props.switchTo === 'next' && displayMonth === thisMonth && displayYear === thisYear ? true : false;
 
   const handleSwitch = () => {
-    let year = displayYear;
-    let month = displayMonth;
     if (props.switchTo === 'prev') {
       if (displayMonth === 1) {
-        month = 12;
-        year--;
+        setDisplayPeriod({
+          displayYear: displayYear - 1,
+          displayMonth: 12
+        });
       } else {
-        month--;
+        setDisplayPeriod({
+          displayYear,
+          displayMonth: displayMonth - 1
+        });
       }
     } else {
       if (displayMonth === 12) {
-        month = 1;
-        year++;
+        setDisplayPeriod({
+          displayYear: displayYear + 1,
+          displayMonth: 1
+        });
       } else {
-        month++;
+        setDisplayPeriod({
+          displayYear,
+          displayMonth: displayMonth + 1
+        });
       }
-    };
-
-    setDisplayPeriod({
-      displayYear: year,
-      displayMonth: month
-    });
-  }
+    }
+  };
 
   return (
     <StyledButton onClick={handleSwitch} disabled={disabled}>
-      {props.switchTo === 'prev' ?
-        <i className="fas fa-chevron-left"></i> :
-        <i className="fas fa-chevron-right"></i>
-      }
+      <i className={props.switchTo === 'prev' ? "fas fa-chevron-left" : "fas fa-chevron-right"}></i>
     </StyledButton>
   );
 };

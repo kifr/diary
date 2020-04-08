@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // context
-import { ctx } from '../pages/top';
+import { ctx } from '../pages/main';
 
 //constants
 import colors from '../../constants/colors';
@@ -12,42 +12,29 @@ interface PeriodType {
   value: string,
   label: string,
   year: number,
-  month: number,
-  isDiary: boolean
-}
-
-const fetchResult: number[] = [
-  12019,
-  32019,
-  52019,
-  12020,
-  22020,
-  32020
-]; // fetch via API
-
-const checkIsDiary = (targetValue: number): boolean => {
-  return fetchResult.some((value) => {
-    return value === targetValue;
-  });
+  month: number
 }
 
 export const Period = () => {
   const { displayPeriod, setDisplayPeriod, thisYear, thisMonth } = useContext(ctx);
   const { displayMonth, displayYear } = displayPeriod;
 
-  let targetMonth = displayMonth;
-  const initialMonth = displayMonth;
+  const periods: PeriodType[] = [];
+
   let targetYear = displayYear;
   const initialYear = displayYear;
+  
+  let targetMonth = displayMonth;
+  const initialMonth = displayMonth;
+
   let reverse = false;
-  let periods: PeriodType[] = [];
+
   for (let i = 0; i < 12; i++) {
     periods.push({
-      value: `${targetMonth}-${targetYear}`,
+      value: `${targetYear}-${targetMonth}`,
       label: `${targetMonth} / ${targetYear}`,
       month: targetMonth,
       year: targetYear,
-      isDiary: checkIsDiary(Number(`${targetMonth}${targetYear}`))
     });
 
     if (
@@ -85,7 +72,7 @@ export const Period = () => {
   });
 
   const handleValue = (value: any) => {
-    const { year, month }: any = periods.find(period => period.value === value);
+    const { year, month }: { year: number, month: number } = periods.find(period => period.value === value);
     setDisplayPeriod({
       displayMonth: month,
       displayYear: year
@@ -95,15 +82,13 @@ export const Period = () => {
   return (
     <StyledSelect
       id="period-select"
-      value={`${displayMonth}-${displayYear}`}
+      value={`${displayYear}-${displayMonth}`}
       onChange={e => handleValue(e.target.value)}
     >
       {
-        periods.map((period, i) => {
-          return (
-            <option key={i} value={period.value}>{period.label}</option>
-          )
-        })
+        periods.map((period: PeriodType, i: number) => (
+          <option key={i} value={period.value}>{period.label}</option>
+        ))
       }
     </StyledSelect>
   );

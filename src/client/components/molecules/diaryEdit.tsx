@@ -1,9 +1,9 @@
 // modules
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 // context
-import { ctx } from '../pages/top';
+import { ctx } from '../pages/main';
 
 // components
 import { H2 } from '../atoms/headline';
@@ -19,8 +19,9 @@ interface DiaryEditProps {
 }
 
 export const DiaryEdit: React.FC<DiaryEditProps> = () => {
-  let { displayDate, diaryTitle, setDiaryTitle, diaryBody, setDiaryBody } = useContext(ctx);
-  displayDate = `${displayDate.replace('-', '月')}日の日記`;
+  const { editingDate } = useContext(ctx);
+  const [diaryTitle, setDiaryTitle] = useState('');
+  const [diaryBody, setDiaryBody] = useState('');
 
   const postContents = () => {
     if (!diaryTitle) {
@@ -46,11 +47,11 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
     })
     .then(res => res.text())
     .then(text => console.info(text));
-  }
+  };
 
   return (
     <>
-      <H2>{displayDate}</H2>
+      <H2>{`${editingDate.month}月${editingDate.date}日の日記`}</H2>
       <TextBox
         name={'title'}
         placeholder={'タイトル'}

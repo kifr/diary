@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // context
-import { ctx } from '../pages/top';
+import { ctx } from '../pages/main';
 
 // components
 import { ModalWrapper } from '../atoms/modalWrapper';
@@ -13,16 +13,14 @@ import { DiaryEdit } from './diaryEdit';
 import colors from '../../constants/colors';
 
 export const ModalContents: React.FC = () => {
-  const { modal, editing } = useContext(ctx);
+  const { modal } = useContext(ctx);
 
   return (
     <>
       {modal &&
         <ModalWrapper>
           <StyledSection onClick={(e) => e.stopPropagation()}>
-            {editing &&
-              <DiaryEdit className="modalContent" />
-            }
+            <DiaryEdit className="modalContent" />
           </StyledSection>
         </ModalWrapper>
       }

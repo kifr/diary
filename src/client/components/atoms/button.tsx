@@ -37,7 +37,7 @@ export const Button: React.FC<ButtonType> = props => {
     }
 
     props.onClick(e);
-  }
+  };
 
   return (
     <StyledButton

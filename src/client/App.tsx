@@ -3,7 +3,7 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 
 // component
-import { Top } from './components/pages/top';
+import { Main } from './components/pages/main';
 
 //constants
 import colors from './constants/colors';
@@ -12,7 +12,7 @@ const App = () => {
   return (
     <section className="App">
       <ResetCSS />
-      <Top />
+      <Main />
     </section>
   );
 };

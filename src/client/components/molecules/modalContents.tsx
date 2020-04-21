@@ -13,12 +13,18 @@ import { DiaryEdit } from './diaryEdit';
 import colors from '../../constants/colors';
 
 export const ModalContents: React.FC = () => {
-  const { modal } = useContext(ctx);
+  const { modal, setModal, setDiaryTitle, setDiaryBody } = useContext(ctx);
+
+  const handleStates = () => {
+    setDiaryTitle('');
+    setDiaryBody('');
+    setModal(false);
+  }
 
   return (
     <>
       {modal &&
-        <ModalWrapper>
+        <ModalWrapper onClick={handleStates}>
           <StyledSection onClick={(e) => e.stopPropagation()}>
             <DiaryEdit className="modalContent" />
           </StyledSection>

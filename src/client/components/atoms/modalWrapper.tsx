@@ -1,23 +1,17 @@
 // modules
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-// context
-import { ctx } from '../pages/main';
 
 interface ModalWrapperType {
   children: JSX.Element;
+  onClick: () => void;
 }
 
-export const ModalWrapper: React.FC<ModalWrapperType> = props => {
-  const { setModal } = useContext(ctx);
-
-  return (
-    <StyledDiv onClick={() => setModal(false)}>
-      {props.children}
-    </StyledDiv>
-  );
-};
+export const ModalWrapper: React.FC<ModalWrapperType> = props => (
+  <StyledDiv onClick={props.onClick}>
+    {props.children}
+  </StyledDiv>
+);
 
 const StyledDiv = styled.div`
   background: rgba(0, 0, 0, 0.7);

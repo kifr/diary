@@ -33,21 +33,32 @@ enum Month {
 }
 
 export const Day: React.FC<DateProps> = props => {
-  const { displayPeriod, setEditingDate, setModal } = useContext(ctx);
+  const { displayPeriod, setEditingDate, setModal, setDiaryTitle, setDiaryBody } = useContext(ctx);
   const { displayYear, displayMonth } = displayPeriod;
 
-  const handleDiaryEdit = (date: number) => {
-    setEditingDate({
-      year: displayYear,
-      month: props.month,
-      date: props.date
-    });
-    setModal(true);
+  const handleDiaryEdit = () => {
+    fetch(`./api/getContents/${displayYear}-${displayMonth}-${props.date}`)
+      .then(res => res.json())
+      .then(result => {
+        setEditingDate({
+          year: displayYear,
+          month: props.month,
+          date: props.date
+        });
+
+        if (result.title) {
+          setDiaryTitle(result.title);
+          setDiaryBody(result.body);
+        }
+
+        setModal(true);
+      })
+    .catch(err => console.error(err));
   };
 
   return (
     <StyledLi isCrrMonth={props.isCrrMonth}>
-      <StyledButton title={props.title} onClick={() => handleDiaryEdit(props.date)}>
+      <StyledButton title={props.title} onClick={() => handleDiaryEdit()}>
         {props.isFirstDate &&
           <StyledMonth>{Month[props.month]}</StyledMonth>
         }

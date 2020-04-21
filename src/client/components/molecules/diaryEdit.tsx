@@ -1,6 +1,5 @@
 // modules
-import React, { useContext, useState } from 'react';
-import styled from 'styled-components';
+import React, { useContext } from 'react';
 
 // context
 import { ctx } from '../pages/main';
@@ -19,9 +18,7 @@ interface DiaryEditProps {
 }
 
 export const DiaryEdit: React.FC<DiaryEditProps> = () => {
-  const { editingDate } = useContext(ctx);
-  const [diaryTitle, setDiaryTitle] = useState('');
-  const [diaryBody, setDiaryBody] = useState('');
+  const { setModal, editingDate, diaryTitle, setDiaryTitle, diaryBody, setDiaryBody } = useContext(ctx);
 
   const postContents = () => {
     if (!diaryTitle) {
@@ -33,7 +30,8 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
       return false;
     }
 
-    let data = {
+    const data = {
+      date: editingDate,
       title: diaryTitle,
       body: diaryBody
     }
@@ -46,7 +44,13 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
       }
     })
     .then(res => res.text())
-    .then(text => console.info(text));
+    .then(text => console.info(text))
+    .catch(err => console.error(err))
+    .finally(() => {
+      setDiaryTitle('');
+      setDiaryBody('');
+      setModal(false);
+    });
   };
 
   return (

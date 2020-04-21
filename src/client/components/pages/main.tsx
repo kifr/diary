@@ -19,6 +19,8 @@ export const Main: React.FC = () => {
     month: '',
     date: ''
   });
+  const [diaryTitle, setDiaryTitle] = useState('');
+  const [diaryBody, setDiaryBody] = useState('');
 
   ctx.thisYear = displayYear;
   ctx.thisMonth = displayMonth;
@@ -28,6 +30,10 @@ export const Main: React.FC = () => {
   ctx.setModal = setModal;
   ctx.editingDate = editingDate;
   ctx.setEditingDate = setEditingDate;
+  ctx.diaryTitle = diaryTitle;
+  ctx.setDiaryTitle = setDiaryTitle;
+  ctx.diaryBody = diaryBody;
+  ctx.setDiaryBody = setDiaryBody;
 
   return (
     <ctx.Provider value={ctx}>

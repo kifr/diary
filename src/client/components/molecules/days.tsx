@@ -9,27 +9,12 @@ import { Day } from '../atoms/day';
 import { ctx } from '../pages/main';
 
 interface DaysType {
-  month: string;
+  month: number;
   isCrrMonth: boolean;
   date: number;
   isFirstDate: boolean;
   isToday: boolean;
   title: string;
-}
-
-enum Month {
-  'Jan.' = 1,
-  'Feb.',
-  'Mar.',
-  'Apr.',
-  'May.',
-  'Jun.',
-  'Jul.',
-  'Aug.',
-  'Sep.',
-  'Oct.',
-  'Nov.',
-  'Dec.'
 }
 
 export const Days:React.FC = () => {
@@ -51,7 +36,7 @@ export const Days:React.FC = () => {
     else targetMonth = RequestMonth;
 
     const day = {
-      month: Month[targetMonth],
+      month: targetMonth,
       isCrrMonth: RequestMonth === displayMonth ? true : false,
       isFirstDate: RequestDate === 1 || dates.length === 0 ? true : false,
       date: RequestDate,

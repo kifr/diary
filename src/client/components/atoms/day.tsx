@@ -9,12 +9,27 @@ import { ctx } from '../pages/main';
 import colors from '../../constants/colors';
 
 interface DateProps {
-  month: string;
+  month: number;
   isCrrMonth: boolean;
   date: number;
   isFirstDate: boolean;
   isToday: boolean;
   title: string;
+}
+
+enum Month {
+  'Jan.' = 1,
+  'Feb.',
+  'Mar.',
+  'Apr.',
+  'May.',
+  'Jun.',
+  'Jul.',
+  'Aug.',
+  'Sep.',
+  'Oct.',
+  'Nov.',
+  'Dec.'
 }
 
 export const Day: React.FC<DateProps> = props => {
@@ -24,7 +39,7 @@ export const Day: React.FC<DateProps> = props => {
   const handleDiaryEdit = (date: number) => {
     setEditingDate({
       year: displayYear,
-      month: displayMonth,
+      month: props.month,
       date: props.date
     });
     setModal(true);
@@ -34,7 +49,7 @@ export const Day: React.FC<DateProps> = props => {
     <StyledLi isCrrMonth={props.isCrrMonth}>
       <StyledButton title={props.title} onClick={() => handleDiaryEdit(props.date)}>
         {props.isFirstDate &&
-          <StyledMonth>{props.month}</StyledMonth>
+          <StyledMonth>{Month[props.month]}</StyledMonth>
         }
         <StyledDate isToday={props.isToday}>{props.date}</StyledDate>
       </StyledButton>

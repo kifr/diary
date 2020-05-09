@@ -22,34 +22,35 @@ server.get('/', (req, res) => {
   res.sendFile(path.join('./', 'dist', 'index.html'));
 });
 
-server.get('/api/getContents/:date', (req, res) => {
-  const { date } = req.params;
-  Contents.find({ date })
-    .then(data => {
-      if (data.length) {
-        res.json({
-          title: data[0].title,
-          body: data[0].body
-        });
-      } else {
-        res.json({});
-      }
-    })
-    .catch(err => console.error(err));
+server.get('/api/getDiaryContents/:date', (req, res) => {
+  Contents.findOne({ date: req.params.date }, (err, result) => {
+    if (err) throw err;
+    if (result) {
+      res.end(JSON.stringify({
+        title: result.title,
+        body: result.body
+      }));
+    } else {
+      res.json({});
+    }
+  });
 });
 
 server.post('/api/createDiary', (req, res) => {
   const { date, title, body } = req.body;
-  const requestDate = `${date.year}-${date.month}-${date.date}`;
-  Contents.update({date: requestDate}, {title, body}, {upsert: true})
-    .then(result => {
-      console.log(result);
-      res.send('Request was accepted');
-    })
-    .catch(err => {
-      console.error(err);
-      res.send('Request was refused');
-    });
+  Contents.create({
+    date,
+    title,
+    body
+  })
+  .then(result => {
+    console.log(result);
+    res.send('Request was accepted');
+  })
+  .catch(err => {
+    console.error(err);
+    res.send('Request was refused');
+  });
 });
 
 server.listen(3000, () => {

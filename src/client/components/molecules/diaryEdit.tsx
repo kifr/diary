@@ -1,5 +1,5 @@
 // modules
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 // context
 import { ctx } from '../pages/main';
@@ -19,19 +19,41 @@ interface DiaryEditProps {
 
 export const DiaryEdit: React.FC<DiaryEditProps> = () => {
   const { setModal, editingDate, diaryTitle, setDiaryTitle, diaryBody, setDiaryBody } = useContext(ctx);
+  const { year, month, date } = editingDate;
+  const [ titleError, setTitleError ] = useState(false);
+  const [ bodyError, setBodyError ] = useState(false);
+
+  const handleTitle = (e: any) => {
+    setDiaryTitle(e.target.value);
+    setTitleError(false);
+  }
+
+  const handleBody = (e: any) => {
+    setDiaryBody(e.target.value);
+    setBodyError(false);
+  }
 
   const postContents = () => {
+    let error = false;
+
     if (!diaryTitle) {
-      console.info('タイトルを入力してください');
-      return false;
-    }
-    if (!diaryBody) {
-      console.info('記事を入力してください');
-      return false;
+      setTitleError(true);
+      error = true;
+    } else {
+      setTitleError(false);
     }
 
-    const data = {
-      date: editingDate,
+    if (!diaryBody) {
+      setBodyError(true);
+      error = true;
+    } else {
+      setBodyError(false);
+    }
+
+    if (error) return false;
+
+    let data = {
+      date: `${year}-${month}-${date}`,
       title: diaryTitle,
       body: diaryBody
     }
@@ -44,29 +66,32 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
       }
     })
     .then(res => res.text())
-    .then(text => console.info(text))
-    .catch(err => console.error(err))
-    .finally(() => {
+    .then(text => {
+      document.body.classList.remove('modal-open');
+      setModal(false);
       setDiaryTitle('');
       setDiaryBody('');
-      setModal(false);
-    });
+
+      console.info(text);
+    })
   };
 
   return (
     <>
-      <H2>{`${editingDate.month}月${editingDate.date}日の日記`}</H2>
+      <H2>{`${month}月${date}日の日記`}</H2>
       <TextBox
         name={'title'}
         placeholder={'タイトル'}
-        onChange={(e:any) => setDiaryTitle(e.target.value)}
+        onChange={(e:any) => handleTitle(e)}
         value={diaryTitle}
+        error={titleError}
       />
       <TextArea
         name={'body'}
         placeholder={'記事'}
-        onChange={(e:any) => setDiaryBody(e.target.value)}
+        onChange={(e:any) => handleBody(e)}
         value={diaryBody}
+        error={bodyError}
       />
       <Button
         type={'button'}

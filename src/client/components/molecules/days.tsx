@@ -27,8 +27,6 @@ export const Days:React.FC = () => {
 
   const createDayObj = (RequestMonth: number, RequestDate: number): DaysType => {
 
-    // TODO: implement fetch functions;
-
     // Adjust month number whithin 1 ~ 12
     let targetMonth: number;
     if (RequestMonth === 0) targetMonth = 12;
@@ -40,7 +38,7 @@ export const Days:React.FC = () => {
       isCrrMonth: RequestMonth === displayMonth ? true : false,
       isFirstDate: RequestDate === 1 || dates.length === 0 ? true : false,
       date: RequestDate,
-      isToday: RequestDate === thisDate && displayMonth === thisMonth && displayYear === thisYear ? true : false,
+      isToday: RequestDate === thisDate && targetMonth === thisMonth && displayYear === thisYear ? true : false,
       title: 'aaaa', // fetch via API
     }
 

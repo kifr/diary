@@ -38,18 +38,32 @@ server.get('/api/getDiaryContents/:date', (req, res) => {
 
 server.post('/api/createDiary', (req, res) => {
   const { date, title, body } = req.body;
-  Contents.create({
-    date,
-    title,
-    body
-  })
-  .then(result => {
-    console.log(result);
-    res.send('Request was accepted');
-  })
-  .catch(err => {
-    console.error(err);
-    res.send('Request was refused');
+  Contents.findOne({ date }, (err, result) => {
+    if (err) throw err;
+    if (result) {
+      Contents.update(
+        { date },
+        { $set: { title, body} },
+        (err, result) => {
+          if (err) throw err;
+          console.log(result);
+          res.send('Request was accepted');
+        });
+    } else {
+      Contents.create({
+        date,
+        title,
+        body
+      })
+      .then(result => {
+        console.log(result);
+        res.send('Request was accepted');
+      })
+      .catch(err => {
+        console.error(err);
+        res.send('Request was refused');
+      });
+    }
   });
 });
 

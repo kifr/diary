@@ -5,20 +5,11 @@ module.exports = merge(webpackConfig, {
   mode: 'development',
   devServer: {
     historyApiFallback: true,
-    inline: true,
     open: true,
     host: '0.0.0.0',
     port: 8080,
     proxy: {
-      '/api/**': {
-        target: 'http://localhost:3000',
-        secure: false,
-        logLevel: 'debug'
-      }
+      '/api': 'http://localhost:3000',
     },
   },
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: 3000
-  }
 });

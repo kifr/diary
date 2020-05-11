@@ -2,33 +2,20 @@ const path = require('path');
 const BabelMinifyPlugin = require("babel-minify-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const outputPath = path.resolve(__dirname, '../dist');
+
 module.exports = {
   mode: 'development',
   entry: path.resolve(__dirname, '../src/client/index.tsx'),
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: outputPath,
     filename: 'main.js'
   },
-  devServer: {
-    contentBase: path.resolve(__dirname, '../dist'),
-    port: 8080,
-    historyApiFallback: true, // without no routing
-  },
   resolve: {
-    modules: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../node_modules')],
-    extensions: ['.ts', '.tsx', '.js']
-  },
-  module: {
-    rules: [
-      {
-        test: [/\.ts$/, /\.tsx$/, /\.js$/],
-        exclude: /node_modules/,
-        loader: [
-          'babel-loader',
-          'ts-loader',
-        ],
-      },
+    modules: [
+      path.resolve(__dirname, '../node_modules')
     ],
+    extensions: ['.ts', '.tsx', '.js']
   },
   plugins: [
     new BabelMinifyPlugin(),
@@ -38,4 +25,16 @@ module.exports = {
       template: 'src/client/index.html',
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: [/\.tsx?$/, /\.js$/],
+        exclude: /node_modules/,
+        loader: [
+          'babel-loader',
+          'ts-loader',
+        ],
+      },
+    ],
+  },
 }

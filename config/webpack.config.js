@@ -23,6 +23,7 @@ module.exports = {
       publicPath: 'dist',
       filename: 'index.html',
       template: 'src/client/index.html',
+      minify: true
     }),
   ],
   module: {

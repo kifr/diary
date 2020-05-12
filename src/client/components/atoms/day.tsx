@@ -1,12 +1,12 @@
 // modules
-import React, { useContext } from 'react';
-import styled from 'styled-components';
+import React, { useContext } from "react";
+import styled from "styled-components";
 
 // context
-import { ctx } from '../pages/main';
+import { ctx } from "../pages/main";
 
 //constants
-import colors from '../../constants/colors';
+import colors from "../../constants/colors";
 
 interface DateProps {
   month: number;
@@ -18,18 +18,18 @@ interface DateProps {
 }
 
 enum Month {
-  'Jan.' = 1,
-  'Feb.',
-  'Mar.',
-  'Apr.',
-  'May.',
-  'Jun.',
-  'Jul.',
-  'Aug.',
-  'Sep.',
-  'Oct.',
-  'Nov.',
-  'Dec.'
+  "Jan." = 1,
+  "Feb.",
+  "Mar.",
+  "Apr.",
+  "May.",
+  "Jun.",
+  "Jul.",
+  "Aug.",
+  "Sep.",
+  "Oct.",
+  "Nov.",
+  "Dec."
 }
 
 export const Day: React.FC<DateProps> = props => {
@@ -51,7 +51,7 @@ export const Day: React.FC<DateProps> = props => {
           setDiaryBody(res.body);
         }
 
-        document.body.classList.add('modal-open');
+        document.body.classList.add("modal-open");
         setModal(true);
       });
   };
@@ -69,7 +69,7 @@ export const Day: React.FC<DateProps> = props => {
 };
 
 const StyledButton = styled.button <{ title: string; }>`
-  background-color: ${props => props.title ? colors.BACKGROUND : '#ddd'};
+  background-color: ${props => props.title ? colors.BACKGROUND : "#ddd"};
   border-radius: 3px;
   width: 100%;
   height: 80px;

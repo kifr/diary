@@ -1,11 +1,11 @@
 // modules
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 // components
-import { DayOfTheWeek } from '../atoms/dayOfTheWeek';
-import { PeriodController } from '../molecules/periodController';
-import { Days } from '../molecules/days';
+import { DayOfTheWeek } from "../atoms/dayOfTheWeek";
+import { PeriodController } from "../molecules/periodController";
+import { Days } from "../molecules/days";
 
 export const Calendar: React.FC = () => {
   return (

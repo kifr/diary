@@ -13,4 +13,4 @@ export default {
   ERROR_FIELD_SHADOW: "#FFEBEB",
   PLACEHOLDER: "#CCC",
   ERROR_PLACEHOLDER: "#888"
-}
+};

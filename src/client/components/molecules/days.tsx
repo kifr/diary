@@ -1,12 +1,12 @@
 // modules
-import React, { useContext } from 'react';
-import styled from 'styled-components';
+import React, { useContext } from "react";
+import styled from "styled-components";
 
 // component
-import { Day } from '../atoms/day';
+import { Day } from "../atoms/day";
 
 // context
-import { ctx } from '../pages/main';
+import { ctx } from "../pages/main";
 
 interface DaysType {
   month: number;
@@ -39,8 +39,8 @@ export const Days:React.FC = () => {
       isFirstDate: RequestDate === 1 || dates.length === 0 ? true : false,
       date: RequestDate,
       isToday: RequestDate === thisDate && targetMonth === thisMonth && displayYear === thisYear ? true : false,
-      title: 'aaaa', // fetch via API
-    }
+      title: "aaaa", // fetch via API
+    };
 
     return day;
   };

@@ -1,24 +1,15 @@
-const merge = require('webpack-merge');
-const webpackConfig = require('./webpack.config.js');
+const merge = require("webpack-merge");
+const webpackConfig = require("./webpack.config.js");
 
 module.exports = merge(webpackConfig, {
-  mode: 'development',
+  mode: "development",
   devServer: {
     historyApiFallback: true,
-    inline: true,
     open: true,
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     port: 8080,
     proxy: {
-      '/api/**': {
-        target: 'http://localhost:3000',
-        secure: false,
-        logLevel: 'debug'
-      }
+      "/api": "http://localhost:80",
     },
   },
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: 3000
-  }
 });

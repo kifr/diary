@@ -1,13 +1,13 @@
 // modules
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 //constants
-import colors from '../../constants/colors';
-import btnSize from '../../constants/btnSize';
+import colors from "../../constants/colors";
+import btnSize from "../../constants/btnSize";
 
 interface ButtonType {
-  type: 'button' | 'submit' | 'reset';
+  type: "button" | "submit" | "reset";
   children: string;
   color?: string;
   bgColor?: string;
@@ -18,13 +18,13 @@ interface ButtonType {
 
 export const Button: React.FC<ButtonType> = props => {
   // HEX to RGB
-  let shadowRgba = 'rgba(255, 255, 255, 1)';
+  let shadowRgba = "rgba(255, 255, 255, 1)";
   if (props.bgColor) {
     let hexArr = (props.bgColor.slice(1)).match(/.{2}/g);
     if (hexArr && hexArr.length === 3) {
       let rgbArr:number[] = [];
       hexArr.map((color: string):void => {
-        rgbArr.push(parseInt(color, 16) - 13 < 0 ? 0 : parseInt(color, 16) - 13)
+        rgbArr.push(parseInt(color, 16) - 13 < 0 ? 0 : parseInt(color, 16) - 13);
       });
       shadowRgba = `rgba(${rgbArr[0]}, ${rgbArr[1]}, ${rgbArr[2]}, 1)`;
     }

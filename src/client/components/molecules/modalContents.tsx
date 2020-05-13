@@ -1,25 +1,25 @@
 // modules
-import React, { useContext } from 'react';
-import styled from 'styled-components';
+import React, { useContext } from "react";
+import styled from "styled-components";
 
 // context
-import { ctx } from '../pages/main';
+import { ctx } from "../pages/main";
 
 // components
-import { ModalWrapper } from '../atoms/modalWrapper';
-import { DiaryEdit } from './diaryEdit';
+import { ModalWrapper } from "../atoms/modalWrapper";
+import { DiaryEdit } from "./diaryEdit";
 
 //constants
-import colors from '../../constants/colors';
+import colors from "../../constants/colors";
 
 export const ModalContents: React.FC = () => {
   const { modal, setModal, setDiaryTitle, setDiaryBody } = useContext(ctx);
 
   const handleStates = () => {
-    setDiaryTitle('');
-    setDiaryBody('');
+    setDiaryTitle("");
+    setDiaryBody("");
     setModal(false);
-  }
+  };
 
   return (
     <>

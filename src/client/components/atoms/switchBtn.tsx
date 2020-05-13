@@ -1,27 +1,27 @@
 // modules
-import React, { useContext } from 'react';
-import styled from 'styled-components';
-import '@fortawesome/fontawesome-free/js/fontawesome';
-import '@fortawesome/fontawesome-free/js/solid';
+import React, { useContext } from "react";
+import styled from "styled-components";
+import "@fortawesome/fontawesome-free/js/fontawesome";
+import "@fortawesome/fontawesome-free/js/solid";
 
 // context
-import { ctx } from '../pages/main';
+import { ctx } from "../pages/main";
 
 //constants
-import colors from '../../constants/colors';
+import colors from "../../constants/colors";
 
 interface SwitchBtnProps {
-  switchTo: 'prev' | 'next';
+  switchTo: "prev" | "next";
 }
 
 export const SwitchBtn: React.FC<SwitchBtnProps> = props => {
   const { displayPeriod, setDisplayPeriod, thisYear, thisMonth } = useContext(ctx);
   const { displayMonth, displayYear } = displayPeriod;
 
-  const disabled = props.switchTo === 'next' && displayMonth === thisMonth && displayYear === thisYear ? true : false;
+  const disabled = props.switchTo === "next" && displayMonth === thisMonth && displayYear === thisYear ? true : false;
 
   const handleSwitch = () => {
-    if (props.switchTo === 'prev') {
+    if (props.switchTo === "prev") {
       if (displayMonth === 1) {
         setDisplayPeriod({
           displayYear: displayYear - 1,
@@ -50,7 +50,7 @@ export const SwitchBtn: React.FC<SwitchBtnProps> = props => {
 
   return (
     <StyledButton onClick={handleSwitch} disabled={disabled}>
-      <i className={props.switchTo === 'prev' ? "fas fa-chevron-left" : "fas fa-chevron-right"}></i>
+      <i className={props.switchTo === "prev" ? "fas fa-chevron-left" : "fas fa-chevron-right"}></i>
     </StyledButton>
   );
 };

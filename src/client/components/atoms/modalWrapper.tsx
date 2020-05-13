@@ -1,9 +1,9 @@
 // modules
-import React, { useContext } from 'react';
-import styled from 'styled-components';
+import React, { useContext } from "react";
+import styled from "styled-components";
 
 // contexts
-import { ctx } from '../pages/main';
+import { ctx } from "../pages/main";
 
 interface ModalWrapperType {
   children: JSX.Element;
@@ -14,10 +14,10 @@ export const ModalWrapper: React.FC<ModalWrapperType> = props => {
   const { setModal, setDiaryTitle, setDiaryBody } = useContext(ctx);
 
   const handleStatus = () => {
-    document.body.classList.remove('modal-open');
+    document.body.classList.remove("modal-open");
     setModal(false);
-    setDiaryTitle('');
-    setDiaryBody('');
+    setDiaryTitle("");
+    setDiaryBody("");
   };
 
   return (

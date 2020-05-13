@@ -1,9 +1,9 @@
 // modules
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 // constant
-import colors from '../../constants/colors';
+import colors from "../../constants/colors";
 
 interface FieldsType {
   name: string;
@@ -75,7 +75,7 @@ const StyledInput = styled.input<{ error: boolean }>`
   background-color: ${props => props.error ? colors.ERROR_FIELD : colors.BACKGROUND};
   text-shadow: 1px 1px 0 #fff;
   box-shadow:  inset 2px 2px 5px ${colors.FIELD_SHADOW},
-               inset -5px -5px 10px ${props => props.error ? colors.ERROR_FIELD_SHADOW : '#fff'};
+               inset -5px -5px 10px ${props => props.error ? colors.ERROR_FIELD_SHADOW : "#fff"};
   width: 100%;
   box-sizing: border-box;
   transition: all .3s ease-in-out;
@@ -101,7 +101,7 @@ const StyledTextarea = styled.textarea<{ error: boolean }>`
   background-color: ${props => props.error ? colors.ERROR_FIELD : colors.BACKGROUND};
   text-shadow: 1px 1px 0 #fff;
   box-shadow: inset 2px 2px 5px ${colors.FIELD_SHADOW},
-              inset -5px -5px 10px ${props => props.error ? colors.ERROR_FIELD_SHADOW : '#fff'};;
+              inset -5px -5px 10px ${props => props.error ? colors.ERROR_FIELD_SHADOW : "#fff"};;
   width: 100%;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;

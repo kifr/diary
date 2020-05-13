@@ -1,10 +1,10 @@
 // modules
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 // components
-import { Period } from '../atoms/period';
-import { SwitchBtn } from '../atoms/switchBtn';
+import { Period } from "../atoms/period";
+import { SwitchBtn } from "../atoms/switchBtn";
 
 export const PeriodController: React.FC = () => {
   return (

@@ -1,9 +1,9 @@
 // module
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 // component
-import { Calendar } from '../organisms/calendar';
-import { ModalContents } from '../molecules/modalContents';
+import { Calendar } from "../organisms/calendar";
+import { ModalContents } from "../molecules/modalContents";
 
 export let ctx: any = React.createContext({});
 
@@ -15,12 +15,12 @@ export const Main: React.FC = () => {
   const [displayPeriod, setDisplayPeriod] = useState({ displayYear, displayMonth });
   const [modal, setModal] = useState(false);
   const [editingDate, setEditingDate] = useState({
-    year: '',
-    month: '',
-    date: ''
+    year: "",
+    month: "",
+    date: ""
   });
-  const [diaryTitle, setDiaryTitle] = useState('');
-  const [diaryBody, setDiaryBody] = useState('');
+  const [diaryTitle, setDiaryTitle] = useState("");
+  const [diaryBody, setDiaryBody] = useState("");
 
   ctx.thisYear = displayYear;
   ctx.thisMonth = displayMonth;

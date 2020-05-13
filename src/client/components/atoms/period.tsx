@@ -1,12 +1,12 @@
 // modules
-import React, { useContext } from 'react';
-import styled from 'styled-components';
+import React, { useContext } from "react";
+import styled from "styled-components";
 
 // context
-import { ctx } from '../pages/main';
+import { ctx } from "../pages/main";
 
 //constants
-import colors from '../../constants/colors';
+import colors from "../../constants/colors";
 
 interface PeriodType {
   value: string,
@@ -77,7 +77,7 @@ export const Period = () => {
       displayMonth: month,
       displayYear: year
     });
-  }
+  };
 
   return (
     <StyledSelect

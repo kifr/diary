@@ -1,12 +1,12 @@
 // modules
-import React from 'react';
-import { createGlobalStyle } from 'styled-components';
+import React from "react";
+import { createGlobalStyle } from "styled-components";
 
 // component
-import { Main } from './components/pages/main';
+import { Main } from "./components/pages/main";
 
 //constants
-import colors from './constants/colors';
+import colors from "./constants/colors";
 
 const App = () => {
   return (
@@ -25,7 +25,7 @@ const ResetCSS = createGlobalStyle`
     color: ${colors.NORMAL_FONT};
     line-height: 1.6;
     box-sizing: border-box;
-    font-family: 'Roboto', "Noto Sans JP", sans-serif;
+    font-family: "Roboto", "Noto Sans JP", sans-serif;
   }
 
   body.modal-open {

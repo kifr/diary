@@ -17,6 +17,7 @@ services:
       - /usr/src/app/node_modules
     working_dir: /usr/src/app
     tty: true
+    # If you wanna run server as production mode, change command to "yarn server:pro".
     command: yarn server:dev
 
   database:

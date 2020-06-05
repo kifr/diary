@@ -5,7 +5,11 @@ import bodyParser from "body-parser";
 import Contents from "./models/contents";
 
 const server = express();
-server.use(express.static(path.join("./", "dist", "client")));
+const node_env = process.env.NODE_ENV || "production";
+
+if (node_env === "production") {
+  server.use(express.static(path.join("./", "dist", "client")));
+}
 server.use(bodyParser.urlencoded({ extended: false}));
 server.use(bodyParser.json());
 
@@ -14,10 +18,8 @@ const databaseUrl = process.env.MONGO_DATABASE || "mongodb://database:27017/diar
 mongoose.connect(databaseUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).catch(err => {throw err;});
-
-server.get("/", (req: express.Request, res: express.Response) => {
-  res.sendFile(path.join("./", "dist", "index.html"));
+}).catch(err => {
+  throw err;
 });
 
 server.get("/api/getDiaryContents/:date", (req: express.Request, res: express.Response) => {

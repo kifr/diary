@@ -1,24 +1,26 @@
-const express = require("express");
-const path = require("path");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const Contents = require("./models/contents");
-
-const databaseUrl = process.env.MONGO_DATABASE || "mongodb://database:27017/diary";
-mongoose.connect(databaseUrl, err => {
-  if (err) throw err;
-});
+import express from "express";
+import path from "path";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import Contents from "./models/contents";
 
 const server = express();
-server.use(express.static(path.join("./", "dist")));
+server.use(express.static(path.join("./", "dist", "client")));
 server.use(bodyParser.urlencoded({ extended: false}));
 server.use(bodyParser.json());
 
-server.get("/", (req, res) => {
+const databaseUrl = process.env.MONGO_DATABASE || "mongodb://database:27017/diary";
+
+mongoose.connect(databaseUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).catch(err => {throw err;});
+
+server.get("/", (req: express.Request, res: express.Response) => {
   res.sendFile(path.join("./", "dist", "index.html"));
 });
 
-server.get("/api/getDiaryContents/:date", (req, res) => {
+server.get("/api/getDiaryContents/:date", (req: express.Request, res: express.Response) => {
   Contents.findOne({ date: req.params.date }, (err, result) => {
     if (err) throw err;
     if (result) {
@@ -32,9 +34,9 @@ server.get("/api/getDiaryContents/:date", (req, res) => {
   });
 });
 
-server.post("/api/createDiary", (req, res) => {
+server.post("/api/createDiary", (req: express.Request, res: express.Response) => {
   const { date, title, body } = req.body;
-  Contents.findOne({ date }, (err, result) => {
+  Contents.findOne({ date }, (err:any, result) => {
     if (err) throw err;
     if (result) {
       Contents.update(

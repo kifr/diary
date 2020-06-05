@@ -2,7 +2,7 @@ const path = require("path");
 const BabelMinifyPlugin = require("babel-minify-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const outputPath = path.resolve(__dirname, "../dist");
+const outputPath = path.resolve(__dirname, "../dist/client/");
 
 module.exports = {
   mode: "development",
@@ -37,9 +37,14 @@ module.exports = {
       {
         test: [/\.tsx?$/, /\.js$/],
         exclude: /node_modules/,
-        loader: [
+        use: [
           "babel-loader",
-          "ts-loader",
+          {
+            loader: "ts-loader",
+            options: {
+              configFile: path.resolve(__dirname, "../src/client/tsconfig.json"),
+            }
+          }
         ],
       },
     ],

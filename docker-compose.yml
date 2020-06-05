@@ -17,7 +17,7 @@ services:
       - /usr/src/app/node_modules
     working_dir: /usr/src/app
     tty: true
-    command: yarn server
+    command: yarn server:dev
 
   database:
     image: mongo:latest

@@ -73,7 +73,8 @@ export const Days:React.FC = () => {
     <StyledUl>
       {
         dates.map((day: DaysType, i: number) => (
-          <Day key={i}
+          <Day
+            key={i}
             month={day.month}
             isCrrMonth={day.isCrrMonth}
             date={day.date}

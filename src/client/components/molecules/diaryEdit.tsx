@@ -1,5 +1,6 @@
 // modules
 import React, { useContext, useState } from "react";
+import styled from "styled-components";
 
 // context
 import { ctx } from "../pages/main";
@@ -8,6 +9,7 @@ import { ctx } from "../pages/main";
 import { H2 } from "../atoms/headline";
 import { TextBox, TextArea } from "../atoms/fields";
 import { Button } from "../atoms/button";
+import { DeleteBtn } from "../atoms/deleteBtn";
 
 //constants
 import colors from "../../constants/colors";
@@ -18,10 +20,20 @@ interface DiaryEditProps {
 }
 
 export const DiaryEdit: React.FC<DiaryEditProps> = () => {
-  const { setModal, editingDate, diaryTitle, setDiaryTitle, diaryBody, setDiaryBody } = useContext(ctx);
+  const {
+    setModal,
+    setDiaryEdit,
+    editingDate,
+    diaryTitle,
+    setDiaryTitle,
+    diaryBody,
+    setDiaryBody,
+    setConfirm,
+  } = useContext(ctx);
   const { year, month, date } = editingDate;
   const [ titleError, setTitleError ] = useState(false);
   const [ bodyError, setBodyError ] = useState(false);
+  const [ deleteBtnDisabled ] = useState(diaryTitle === "" && diaryBody === "");
 
   const handleTitle = (e: any) => {
     setDiaryTitle(e.target.value);
@@ -31,6 +43,57 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
   const handleBody = (e: any) => {
     setDiaryBody(e.target.value);
     setBodyError(false);
+  };
+
+  const defaultConfirm = () => {
+    setConfirm({
+      active: false,
+      message: "",
+      apllyBtnText: "",
+      apllyBtnColor: "",
+      apllyBtnFunc: () => {},
+      cancelBtnText: "",
+      cancelBtnColor: "",
+    });
+  };
+
+  const handleDelete = () => {
+    setDiaryEdit(false);
+    setConfirm({
+      active: true,
+      message: `${year}年${month}月${date}日の日記を削除してよろしいですか？`,
+      apllyBtnText: "削除する",
+      apllyBtnColor: colors.DANGER,
+      apllyBtnFunc: () => {
+        fetch(`/api/deleteDiary/${year}-${month}-${date}`, {
+          method: "POST"
+        })
+        .then(res => {
+          if (res.status === 200) {
+            setConfirm({
+              active: true,
+              message: "日記を削除しました。",
+              apllyBtnText: "閉じる",
+              apllyBtnColor: colors.PRIMARY,
+              apllyBtnFunc: () => {
+                setModal(false);
+                setDiaryTitle("");
+                setDiaryBody("");
+                defaultConfirm();
+              },
+            });
+          } else {
+            console.error("エラーが発生しました。");
+          }
+        });
+      },
+      cancelBtnText: "キャンセル",
+      cancelBtnColor: colors.PRIMARY,
+      cancelBtnFunc: () => {
+        defaultConfirm();
+        setDiaryEdit(true);
+      },
+    });
   };
 
   const postContents = () => {
@@ -78,7 +141,13 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
 
   return (
     <>
-      <H2>{`${month}月${date}日の日記`}</H2>
+      <StyledDiv>
+        <H2>{`${month}月${date}日の日記`}</H2>
+        <DeleteBtn
+          onClick={handleDelete}
+          disabled={deleteBtnDisabled}
+        />
+      </StyledDiv>
       <TextBox
         name={"title"}
         placeholder={"タイトル"}
@@ -103,3 +172,12 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
     </>
   );
 };
+
+const StyledDiv = styled.div`
+  position: relative;
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+`;

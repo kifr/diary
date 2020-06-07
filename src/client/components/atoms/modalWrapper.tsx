@@ -5,8 +5,12 @@ import styled from "styled-components";
 // contexts
 import { ctx } from "../pages/main";
 
+// constant
+import colors from "../../constants/colors";
+
 interface ModalWrapperType {
   children: JSX.Element;
+  backgroundWidth: number;
   onClick: () => void;
 }
 
@@ -21,17 +25,35 @@ export const ModalWrapper: React.FC<ModalWrapperType> = props => {
   };
 
   return (
-    <StyledDiv onClick={() => handleStatus()}>
-      {props.children}
-    </StyledDiv>
+    <StyledWrapper onClick={() => handleStatus()}>
+      <StyledBackground
+        backgroundWidth={props.backgroundWidth}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {props.children}
+      </StyledBackground>
+    </StyledWrapper>
   );
 };
 
-const StyledDiv = styled.div`
+const StyledWrapper = styled.div`
   background: rgba(0, 0, 0, 0.7);
   width: 100%;
   height: 100%;
   position: fixed;
   top: 0;
   left: 0;
+`;
+
+const StyledBackground = styled.div<{ backgroundWidth: number }>`
+  background: ${colors.BACKGROUND};
+  width: ${props => props.backgroundWidth}%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 10px;
 `;

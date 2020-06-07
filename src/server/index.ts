@@ -38,7 +38,7 @@ server.get("/api/getDiaryContents/:date", (req: express.Request, res: express.Re
 
 server.post("/api/createDiary", (req: express.Request, res: express.Response) => {
   const { date, title, body } = req.body;
-  Contents.findOne({ date }, (err:any, result) => {
+  Contents.findOne({ date }, (err, result) => {
     if (err) throw err;
     if (result) {
       Contents.update(
@@ -60,10 +60,19 @@ server.post("/api/createDiary", (req: express.Request, res: express.Response) =>
         res.send("Request was accepted");
       })
       .catch(err => {
-        console.error(err);
-        res.send("Request was refused");
+        throw err;
       });
     }
+  });
+});
+
+server.post("/api/deleteDiary/:date", (req: express.Request, res: express.Response) => {
+  Contents.deleteOne({ date: req.params.date })
+  .then(() => {
+    res.send("Request was accepted");
+  })
+  .catch(err => {
+    throw err;
   });
 });
 

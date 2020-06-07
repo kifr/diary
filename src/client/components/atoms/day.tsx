@@ -33,27 +33,35 @@ enum Month {
 }
 
 export const Day: React.FC<DateProps> = props => {
-  const { displayPeriod, setEditingDate, setModal, setDiaryTitle, setDiaryBody } = useContext(ctx);
+  const {
+    setModal,
+    setDiaryEdit,
+    displayPeriod,
+    setEditingDate,
+    setDiaryTitle,
+    setDiaryBody
+  } = useContext(ctx);
   const { displayYear } = displayPeriod;
 
   const handleDiaryEdit = () => {
     fetch(`/api/getDiaryContents/${displayYear}-${props.month}-${props.date}`)
-      .then(res => res.json())
-      .then(res => {
-        setEditingDate({
-          year: displayYear,
-          month: props.month,
-          date: props.date
-        });
-
-        if (res.title) {
-          setDiaryTitle(res.title);
-          setDiaryBody(res.body);
-        }
-
-        document.body.classList.add("modal-open");
-        setModal(true);
+    .then(res => res.json())
+    .then(res => {
+      setEditingDate({
+        year: displayYear,
+        month: props.month,
+        date: props.date
       });
+
+      if (res.title) {
+        setDiaryTitle(res.title);
+        setDiaryBody(res.body);
+      }
+
+      document.body.classList.add("modal-open");
+      setDiaryEdit(true);
+      setModal(true);
+    });
   };
 
   return (

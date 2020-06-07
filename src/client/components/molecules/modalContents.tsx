@@ -1,6 +1,5 @@
 // modules
 import React, { useContext } from "react";
-import styled from "styled-components";
 
 // context
 import { ctx } from "../pages/main";
@@ -8,12 +7,17 @@ import { ctx } from "../pages/main";
 // components
 import { ModalWrapper } from "../atoms/modalWrapper";
 import { DiaryEdit } from "./diaryEdit";
-
-//constants
-import colors from "../../constants/colors";
+import { Confirm } from "./confirm";
 
 export const ModalContents: React.FC = () => {
-  const { modal, setModal, setDiaryTitle, setDiaryBody } = useContext(ctx);
+  const {
+    modal,
+    setModal,
+    diaryEdit,
+    setDiaryTitle,
+    setDiaryBody,
+    confirm,
+  } = useContext(ctx);
 
   const handleStates = () => {
     setDiaryTitle("");
@@ -21,28 +25,29 @@ export const ModalContents: React.FC = () => {
     setModal(false);
   };
 
-  return (
-    <>
-      {modal &&
-        <ModalWrapper onClick={handleStates}>
-          <StyledSection onClick={(e) => e.stopPropagation()}>
-            <DiaryEdit className="modalContent" />
-          </StyledSection>
+  if (modal) {
+    if (diaryEdit) {
+      return (
+        <ModalWrapper
+          backgroundWidth={75}
+          onClick={handleStates}
+        >
+          <DiaryEdit
+            className="modalContent"
+          />
         </ModalWrapper>
-      }
-    </>
-  );
-};
+      );
+    } else if (confirm.active) {
+      return (
+        <ModalWrapper
+          backgroundWidth={50}
+          onClick={handleStates}
+        >
+          <Confirm />
+        </ModalWrapper>
+      );
+    }
+  }
 
-const StyledSection = styled.section`
-  background: ${colors.BACKGROUND};
-  width: 75%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 30px;
-  box-sizing: border-box;
-  text-align: center;
-  border-radius: 10px;
-`;
+  return <></>;
+};

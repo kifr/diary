@@ -3,6 +3,8 @@ export default {
   PRIMARY: "#00C46D",
   WHITE: "#FFF",
   BACKGROUND: "#EBF5FC",
+  DANGER: "#C40000",
+  DANGER_DISABLED: "#DE8888",
 
   // FONT
   NORMAL_FONT: "#1D1D1D",

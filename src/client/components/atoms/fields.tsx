@@ -8,57 +8,35 @@ import colors from "../../constants/colors";
 interface FieldsType {
   name: string;
   placeholder?: string;
-  onChange?: any;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   value: string;
   error?: boolean;
 }
 
-export const TextBox: React.FC<FieldsType> = props => {
-  const handleChange = (e: React.SyntheticEvent<any, Event>) => {
-    if (!props.onChange) {
-      e.preventDefault();
-      return false;
-    }
-
-    props.onChange(e);
-  };
-
-  return (
-    <StyledLabel>
-      <StyledInput
-        type="text"
-        name={props.name}
-        placeholder={props.placeholder}
-        onChange={handleChange}
-        value={props.value}
-        error={props.error}
-      />
-    </StyledLabel>
-  );
-};
-
-export const TextArea: React.FC<FieldsType> = props => {
-  const handleChange = (e: React.SyntheticEvent<any, Event>) => {
-    if (!props.onChange) {
-      e.preventDefault();
-      return false;
-    }
-
-    props.onChange(e);
-  };
-
-  return (
-    <StyledLabel>
-      <StyledTextarea
+export const TextBox: React.FC<FieldsType> = props => (
+  <StyledLabel>
+    <StyledInput
+      type="text"
       name={props.name}
       placeholder={props.placeholder}
-      onChange={handleChange}
       value={props.value}
+      onChange={props.onChange}
       error={props.error}
     />
-    </StyledLabel>
-  );
-};
+  </StyledLabel>
+);
+
+export const TextArea: React.FC<FieldsType> = props => (
+  <StyledLabel>
+    <StyledTextarea
+    name={props.name}
+    placeholder={props.placeholder}
+    value={props.value}
+    onChange={props.onChange}
+    error={props.error}
+  />
+  </StyledLabel>
+);
 
 const StyledLabel = styled.label`
   display: block;

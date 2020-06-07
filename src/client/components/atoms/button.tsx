@@ -13,7 +13,7 @@ interface ButtonType {
   bgColor?: string;
   size?: string;
   shadowRgba?: string;
-  onClick?: any;
+  onClick: () => void;
 }
 
 export const Button: React.FC<ButtonType> = props => {
@@ -30,15 +30,6 @@ export const Button: React.FC<ButtonType> = props => {
     }
   }
 
-  const handleClick = (e: React.SyntheticEvent<any, Event>) => {
-    if (!props.onClick) {
-      e.preventDefault();
-      return false;
-    }
-
-    props.onClick(e);
-  };
-
   return (
     <StyledButton
       type={props.type}
@@ -46,7 +37,7 @@ export const Button: React.FC<ButtonType> = props => {
       bgColor={props.bgColor}
       size={props.size}
       shadowRgba={shadowRgba}
-      onClick={handleClick}
+      onClick={props.onClick}
     >
       {props.children}
     </StyledButton>

@@ -31,17 +31,17 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
     setConfirm,
   } = useContext(ctx);
   const { year, month, date } = editingDate;
-  const [ titleError, setTitleError ] = useState(false);
-  const [ bodyError, setBodyError ] = useState(false);
-  const [ deleteBtnDisabled ] = useState(diaryTitle === "" && diaryBody === "");
+  const [titleError, setTitleError] = useState(false);
+  const [bodyError, setBodyError] = useState(false);
+  const [deleteBtnDisabled] = useState(diaryTitle === "" && diaryBody === "");
 
-  const handleTitle = (e: any) => {
-    setDiaryTitle(e.target.value);
+  const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDiaryTitle(e.currentTarget.value);
     setTitleError(false);
   };
 
-  const handleBody = (e: any) => {
-    setDiaryBody(e.target.value);
+  const handleBody = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDiaryBody(e.currentTarget.value);
     setBodyError(false);
   };
 
@@ -51,9 +51,10 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
       message: "",
       apllyBtnText: "",
       apllyBtnColor: "",
-      apllyBtnFunc: () => {},
       cancelBtnText: "",
       cancelBtnColor: "",
+      apllyBtnFunc: () => {},
+      cancelBtnFunc: () => {},
     });
   };
 
@@ -64,6 +65,8 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
       message: `${year}年${month}月${date}日の日記を削除してよろしいですか？`,
       apllyBtnText: "削除する",
       apllyBtnColor: colors.DANGER,
+      cancelBtnText: "キャンセル",
+      cancelBtnColor: colors.PRIMARY,
       apllyBtnFunc: () => {
         fetch(`/api/deleteDiary/${year}-${month}-${date}`, {
           method: "POST"
@@ -76,6 +79,7 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
               apllyBtnText: "閉じる",
               apllyBtnColor: colors.PRIMARY,
               apllyBtnFunc: () => {
+                document.body.classList.remove("modal-open");
                 setModal(false);
                 setDiaryTitle("");
                 setDiaryBody("");
@@ -83,12 +87,19 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
               },
             });
           } else {
-            console.error("エラーが発生しました。");
+            setConfirm({
+              active: true,
+              message: "日記を削除できませんでした。",
+              apllyBtnText: "編集画面に戻る",
+              apllyBtnColor: colors.PRIMARY,
+              apllyBtnFunc: () => {
+                defaultConfirm();
+                setDiaryEdit(true);
+              },
+            });
           }
         });
       },
-      cancelBtnText: "キャンセル",
-      cancelBtnColor: colors.PRIMARY,
       cancelBtnFunc: () => {
         defaultConfirm();
         setDiaryEdit(true);
@@ -115,7 +126,7 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
 
     if (error) return false;
 
-    let data = {
+    const data = {
       date: `${year}-${month}-${date}`,
       title: diaryTitle,
       body: diaryBody
@@ -128,14 +139,23 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
         "Content-Type": "application/json"
       }
     })
-    .then(res => res.text())
-    .then(text => {
-      document.body.classList.remove("modal-open");
-      setModal(false);
+    .then(() => {
+      setConfirm({
+        active: true,
+        message: "日記を保存しました。",
+        apllyBtnText: "閉じる",
+        apllyBtnColor: colors.PRIMARY,
+        apllyBtnFunc: () => {
+          document.body.classList.remove("modal-open");
+          setModal(false);
+          setDiaryTitle("");
+          setDiaryBody("");
+          defaultConfirm();
+        },
+      });
+      setDiaryEdit(false);
       setDiaryTitle("");
       setDiaryBody("");
-
-      console.info(text);
     });
   };
 
@@ -151,14 +171,14 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
       <TextBox
         name={"title"}
         placeholder={"タイトル"}
-        onChange={(e:any) => handleTitle(e)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleTitle(e)}
         value={diaryTitle}
         error={titleError}
       />
       <TextArea
         name={"body"}
         placeholder={"記事"}
-        onChange={(e:any) => handleBody(e)}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleBody(e)}
         value={diaryBody}
         error={bodyError}
       />

@@ -27,9 +27,9 @@ export const Main: React.FC = () => {
     message: "",
     apllyBtnText: "",
     apllyBtnColor: "",
-    apllyBtnFunc: () => {},
     cancelBtnText: "",
     cancelBtnColor: "",
+    apllyBtnFunc: () => {},
     cancelBtnFunc: () => {},
   });
 

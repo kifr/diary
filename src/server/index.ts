@@ -18,7 +18,13 @@ const databaseUrl = process.env.MONGO_DATABASE || "mongodb://database:27017/diar
 mongoose.connect(databaseUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).catch(err => {
+})
+.then(() => {
+  server.listen(3000, () => {
+    console.log("server running");
+  });
+})
+.catch(err => {
   throw err;
 });
 
@@ -74,8 +80,4 @@ server.post("/api/deleteDiary/:date", (req: express.Request, res: express.Respon
   .catch(err => {
     throw err;
   });
-});
-
-server.listen(3000, () => {
-  console.log("server running");
 });

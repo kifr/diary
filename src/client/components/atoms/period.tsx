@@ -71,7 +71,7 @@ export const Period = () => {
     else return 0;
   });
 
-  const handleValue = (value: any) => {
+  const handleValue = (value: string) => {
     const { year, month }: { year: number, month: number } = periods.find(period => period.value === value);
     setDisplayPeriod({
       displayMonth: month,
@@ -83,7 +83,7 @@ export const Period = () => {
     <StyledSelect
       id="period-select"
       value={`${displayYear}-${displayMonth}`}
-      onChange={e => handleValue(e.target.value)}
+      onChange={e => handleValue(e.currentTarget.value)}
     >
       {
         periods.map((period: PeriodType, i: number) => (

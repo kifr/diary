@@ -25,28 +25,24 @@ export const ModalContents: React.FC = () => {
     setModal(false);
   };
 
-  if (modal) {
-    if (diaryEdit) {
-      return (
-        <ModalWrapper
-          backgroundWidth={75}
-          onClick={handleStates}
-        >
-          <DiaryEdit
-            className="modalContent"
-          />
-        </ModalWrapper>
-      );
-    } else if (confirm.active) {
-      return (
-        <ModalWrapper
-          backgroundWidth={50}
-          onClick={handleStates}
-        >
-          <Confirm />
-        </ModalWrapper>
-      );
-    }
+  if (modal && diaryEdit) {
+    return (
+      <ModalWrapper
+        backgroundWidth={75}
+        onClick={handleStates}
+      >
+        <DiaryEdit />
+      </ModalWrapper>
+    );
+  } else if (modal && confirm.active) {
+    return (
+      <ModalWrapper
+        backgroundWidth={50}
+        onClick={handleStates}
+      >
+        <Confirm />
+      </ModalWrapper>
+    );
   }
 
   return <></>;

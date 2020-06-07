@@ -2,7 +2,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
-// components
+// component
 import { Button } from "../atoms/button";
 
 // context
@@ -19,9 +19,9 @@ export const Confirm: React.FC = () => {
       message: "",
       apllyBtnText: "",
       apllyBtnColor: "",
-      apllyBtnFunc: () => {},
       cancelBtnText: "",
       cancelBtnColor: "",
+      apllyBtnFunc: () => {},
       cancelBtnFunc: () => {},
     });
   };

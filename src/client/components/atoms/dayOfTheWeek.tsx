@@ -2,19 +2,17 @@
 import React from "react";
 import styled from "styled-components";
 
-export const DayOfTheWeek: React.FC = () => {
-  return (
-    <StyledUl>
-      <StyledLi color={"red"}>Sun.</StyledLi>
-      <StyledLi>Mon.</StyledLi>
-      <StyledLi>Tue.</StyledLi>
-      <StyledLi>Wed.</StyledLi>
-      <StyledLi>Thu.</StyledLi>
-      <StyledLi>Fri.</StyledLi>
-      <StyledLi color={"blue"}>Sat.</StyledLi>
-    </StyledUl>
-  );
-};
+export const DayOfTheWeek: React.FC = () => (
+  <StyledUl>
+    <StyledLi color={"red"}>Sun.</StyledLi>
+    <StyledLi>Mon.</StyledLi>
+    <StyledLi>Tue.</StyledLi>
+    <StyledLi>Wed.</StyledLi>
+    <StyledLi>Thu.</StyledLi>
+    <StyledLi>Fri.</StyledLi>
+    <StyledLi color={"blue"}>Sat.</StyledLi>
+  </StyledUl>
+);
 
 const StyledUl = styled.ul`
   display: flex;

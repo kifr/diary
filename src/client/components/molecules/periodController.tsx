@@ -4,17 +4,15 @@ import styled from "styled-components";
 
 // components
 import { Period } from "../atoms/period";
-import { SwitchBtn } from "../atoms/switchBtn";
+import { SwitchBtn } from "../atoms/buttons";
 
-export const PeriodController: React.FC = () => {
-  return (
-    <StyledSection>
-      <SwitchBtn switchTo="prev" />
-      <Period />
-      <SwitchBtn switchTo="next" />
-    </StyledSection>
-  );
-};
+export const PeriodController: React.FC = () => (
+  <StyledSection>
+    <SwitchBtn switchTo="prev" />
+    <Period className="priodSelector" />
+    <SwitchBtn switchTo="next" />
+  </StyledSection>
+);
 
 const StyledSection = styled.section`
   display: flex;
@@ -22,4 +20,7 @@ const StyledSection = styled.section`
   justify-content: center;
   width: 50%;
   margin: 0 auto;
+  .priodSelector {
+    margin: 15px;
+  }
 `;

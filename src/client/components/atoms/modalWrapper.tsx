@@ -37,7 +37,7 @@ export const ModalWrapper: React.FC<ModalWrapperType> = props => {
 };
 
 const StyledWrapper = styled.div`
-  background: rgba(0, 0, 0, 0.7);
+  background: ${colors.MODAL_WRAPPER};
   width: 100%;
   height: 100%;
   position: fixed;

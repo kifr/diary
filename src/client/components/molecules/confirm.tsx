@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 
 // component
-import { Button } from "../atoms/button";
+import { Button } from "../atoms/buttons";
 
 // context
 import { ctx } from "../pages/main";

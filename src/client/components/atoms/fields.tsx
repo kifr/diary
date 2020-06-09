@@ -13,6 +13,10 @@ interface FieldsType {
   error?: boolean;
 }
 
+/*———————————–———————————–
+  TextBox
+——————————————————————––*/
+
 export const TextBox: React.FC<FieldsType> = props => (
   <StyledLabel>
     <StyledInput
@@ -23,18 +27,6 @@ export const TextBox: React.FC<FieldsType> = props => (
       onChange={props.onChange}
       error={props.error}
     />
-  </StyledLabel>
-);
-
-export const TextArea: React.FC<FieldsType> = props => (
-  <StyledLabel>
-    <StyledTextarea
-    name={props.name}
-    placeholder={props.placeholder}
-    value={props.value}
-    onChange={props.onChange}
-    error={props.error}
-  />
   </StyledLabel>
 );
 
@@ -51,9 +43,9 @@ const StyledInput = styled.input<{ error: boolean }>`
   border-radius: 10px;
   padding: 16px;
   background-color: ${props => props.error ? colors.ERROR_FIELD : colors.BACKGROUND};
-  text-shadow: 1px 1px 0 #fff;
+  text-shadow: 1px 1px 0 ${colors.WHITE};
   box-shadow:  inset 2px 2px 5px ${colors.FIELD_SHADOW},
-               inset -5px -5px 10px ${props => props.error ? colors.ERROR_FIELD_SHADOW : "#fff"};
+               inset -5px -5px 10px ${props => props.error ? colors.ERROR_FIELD_SHADOW : colors.WHITE};
   width: 100%;
   box-sizing: border-box;
   transition: all .3s ease-in-out;
@@ -64,9 +56,26 @@ const StyledInput = styled.input<{ error: boolean }>`
   }
   &:focus {
     box-shadow: inset 1px 1px 2px ${colors.FIELD_SHADOW},
-                inset -1px -1px 2px #fff;
+                inset -1px -1px 2px ${colors.WHITE};
   }
 `;
+
+
+/*———————————–———————————–
+  TextArea
+——————————————————————––*/
+
+export const TextArea: React.FC<FieldsType> = props => (
+  <StyledLabel>
+    <StyledTextarea
+      name={props.name}
+      placeholder={props.placeholder}
+      value={props.value}
+      onChange={props.onChange}
+      error={props.error}
+    />
+  </StyledLabel>
+);
 
 const StyledTextarea = styled.textarea<{ error: boolean }>`
   border: none;
@@ -77,9 +86,9 @@ const StyledTextarea = styled.textarea<{ error: boolean }>`
   line-height: inherit;
   height: 50vh;
   background-color: ${props => props.error ? colors.ERROR_FIELD : colors.BACKGROUND};
-  text-shadow: 1px 1px 0 #fff;
+  text-shadow: 1px 1px 0 ${colors.WHITE};
   box-shadow: inset 2px 2px 5px ${colors.FIELD_SHADOW},
-              inset -5px -5px 10px ${props => props.error ? colors.ERROR_FIELD_SHADOW : "#fff"};;
+              inset -5px -5px 10px ${props => props.error ? colors.ERROR_FIELD_SHADOW : colors.WHITE};
   width: 100%;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
@@ -91,6 +100,6 @@ const StyledTextarea = styled.textarea<{ error: boolean }>`
   }
   &:focus {
     box-shadow: inset 1px 1px 2px ${colors.FIELD_SHADOW},
-                inset -1px -1px 2px #fff;
+                inset -1px -1px 2px ${colors.WHITE};
   }
 `;

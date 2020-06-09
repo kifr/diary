@@ -8,18 +8,18 @@ import { ctx } from "../pages/main";
 // components
 import { H2 } from "../atoms/headline";
 import { TextBox, TextArea } from "../atoms/fields";
-import { Button } from "../atoms/button";
-import { DeleteBtn } from "../atoms/deleteBtn";
+import { Button } from "../atoms/buttons";
+import { CircleBtn } from "../atoms/buttons";
 
 //constants
 import colors from "../../constants/colors";
 import btnSize from "../../constants/btnSize";
 
-interface DiaryEditProps {
+interface DiaryEditType {
   className?: string;
 }
 
-export const DiaryEdit: React.FC<DiaryEditProps> = () => {
+export const DiaryEdit: React.FC<DiaryEditType> = () => {
   const {
     setModal,
     setDiaryEdit,
@@ -163,7 +163,10 @@ export const DiaryEdit: React.FC<DiaryEditProps> = () => {
     <>
       <StyledDiv>
         <H2>{`${month}月${date}日の日記`}</H2>
-        <DeleteBtn
+        <CircleBtn
+          className={"fas fa-trash"}
+          iconColor={colors.DANGER}
+          disabledIconColor={colors.DANGER_DISABLED}
           onClick={handleDelete}
           disabled={deleteBtnDisabled}
         />

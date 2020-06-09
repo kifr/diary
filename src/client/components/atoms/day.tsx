@@ -8,7 +8,7 @@ import { ctx } from "../pages/main";
 //constants
 import colors from "../../constants/colors";
 
-interface DateProps {
+interface DateType {
   month: number;
   isCrrMonth: boolean;
   date: number;
@@ -32,7 +32,7 @@ enum Month {
   "Dec."
 }
 
-export const Day: React.FC<DateProps> = props => {
+export const Day: React.FC<DateType> = props => {
   const {
     setModal,
     setDiaryEdit,
@@ -84,13 +84,13 @@ const StyledButton = styled.button <{ title: string; }>`
   border: none;
   position: relative;
   outline: none;
-  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
-              3px 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: -2px -2px 5px ${colors.WHITE},
+              3px 3px 5px ${colors.OBJECT_SHADOW};
   cursor: pointer;
   user-select: none;
   &:active {
-    box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 1),
-                inset 3px 3px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: inset -2px -2px 5px ${colors.WHITE},
+                inset 3px 3px 5px ${colors.OBJECT_SHADOW};
   }
 `;
 
@@ -117,5 +117,5 @@ const StyledDate = styled.span<{ isToday: boolean }>`
   right: 10%;
   font-size: 1rem;
   font-weight: ${props => props.isToday ? "bold" : "normal"};
-  color: ${props => props.isToday ? "#f00" : "#555"};
+  color: ${props => props.isToday ? colors.DANGER : colors.NORMAL_FONT};
 `;

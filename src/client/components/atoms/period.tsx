@@ -9,17 +9,21 @@ import { ctx } from "../pages/main";
 import colors from "../../constants/colors";
 
 interface PeriodType {
+  className?: string,
+}
+
+interface PeriodsObjType {
   value: string,
   label: string,
   year: number,
-  month: number
+  month: number,
 }
 
-export const Period = () => {
+export const Period: React.FC<PeriodType> = props => {
   const { displayPeriod, setDisplayPeriod, thisYear, thisMonth } = useContext(ctx);
   const { displayMonth, displayYear } = displayPeriod;
 
-  const periods: PeriodType[] = [];
+  const periods: PeriodsObjType[] = [];
 
   let targetYear = displayYear;
   const initialYear = displayYear;
@@ -63,7 +67,7 @@ export const Period = () => {
     }
   }
 
-  periods.sort((a: PeriodType, b: PeriodType): number => {
+  periods.sort((a: PeriodsObjType, b: PeriodsObjType): number => {
     if (a.year > b.year) return 1;
     else if (a.year < b.year) return -1;
     else if (a.month > b.month) return 1;
@@ -84,9 +88,10 @@ export const Period = () => {
       id="period-select"
       value={`${displayYear}-${displayMonth}`}
       onChange={e => handleValue(e.currentTarget.value)}
+      className={props.className}
     >
       {
-        periods.map((period: PeriodType, i: number) => (
+        periods.map((period: PeriodsObjType, i: number) => (
           <option key={i} value={period.value}>{period.label}</option>
         ))
       }
@@ -97,8 +102,8 @@ export const Period = () => {
 const StyledSelect = styled.select`
   border: none;
   color: ${colors.PRIMARY};
-  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
-              3px 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: -2px -2px 5px ${colors.WHITE},
+              3px 3px 5px ${colors.OBJECT_SHADOW};
   background: ${colors.BACKGROUND};
   width: 10rem;
   height: 2.5rem;

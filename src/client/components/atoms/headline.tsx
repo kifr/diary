@@ -34,3 +34,16 @@ const StyledH2 = styled.h2`
   font-size: 1.5rem;
   margin-bottom: 1rem;
 `;
+
+/*———————————–———————————–
+  H3
+——————————————————————––*/
+
+export const H3: React.FC<HeadlineType> = props => (
+  <StyledH3 className={props.className}>{props.children}</StyledH3>
+);
+
+const StyledH3 = styled.h3`
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+`;

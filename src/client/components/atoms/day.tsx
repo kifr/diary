@@ -66,7 +66,10 @@ export const Day: React.FC<DateType> = props => {
 
   return (
     <StyledLi isCrrMonth={props.isCrrMonth}>
-      <StyledButton title={props.title} onClick={() => handleDiaryEdit()}>
+      <StyledButton
+        title={props.title}
+        onClick={() => handleDiaryEdit()}
+      >
         {props.isFirstDate &&
           <StyledMonth>{Month[props.month]}</StyledMonth>
         }
@@ -106,8 +109,8 @@ const StyledMonth = styled.span`
   position: absolute;
   top: 10%;
   left: 10%;
-  font-size: 1rem;
-  color: red;
+  font-size: 1.2rem;
+  color: ${colors.DANGER};
   text-transform: initial;
 `;
 
@@ -115,7 +118,7 @@ const StyledDate = styled.span<{ isToday: boolean }>`
   position: absolute;
   top: 10%;
   right: 10%;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: ${props => props.isToday ? "bold" : "normal"};
-  color: ${props => props.isToday ? colors.DANGER : colors.NORMAL_FONT};
+  color: ${props => props.isToday ? colors.PRIMARY : colors.NORMAL_FONT};
 `;

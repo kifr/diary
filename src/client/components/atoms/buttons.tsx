@@ -81,6 +81,7 @@ const StyledButton = styled.button<{ bgColor?: string; size?: string; shadowRgba
 
 interface CircleBtnType {
   className: string;
+  iconClassName: string;
   iconColor: string;
   disabledIconColor: string;
   disabled?: boolean;
@@ -89,12 +90,13 @@ interface CircleBtnType {
 
 export const CircleBtn: React.FC<CircleBtnType> = props => (
   <StyledCircleButton
+    className={props.className}
     onClick={props.onClick}
     disabled={props.disabled}
     iconColor={props.iconColor}
     disabledIconColor={props.disabledIconColor}
   >
-    <i className={props.className}></i>
+    <i className={props.iconClassName}></i>
   </StyledCircleButton>
 );
 

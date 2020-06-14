@@ -6,11 +6,11 @@
   "author": "kifr",
   "license": "MIT",
   "scripts": {
-    "client"      : "webpack-dev-server --config ./webpack/webpack.config.dev.js",
-    "server:dev"  : "yarn -s run ts-node-dev --project ./src/server/tsconfig.json ./src/server/index.ts",
-    "server:pro"  : "yarn build:client && yarn build:node && NODE_ENV=production node ./dist/server/index.js",
+    "client": "webpack-dev-server --config ./webpack/webpack.config.dev.js",
+    "server:dev": "yarn -s run ts-node-dev --project ./src/server/tsconfig.json ./src/server/index.ts",
+    "server:pro": "yarn build:client && yarn build:node && NODE_ENV=production node ./dist/server/index.js",
     "build:client": "webpack --config ./webpack/webpack.config.js --mode production",
-    "build:node"  : "tsc --project ./src/server/tsconfig.json"
+    "build:node": "tsc --project ./src/server/tsconfig.json"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",

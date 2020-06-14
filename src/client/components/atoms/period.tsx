@@ -27,7 +27,7 @@ export const Period: React.FC<PeriodType> = props => {
 
   let targetYear = displayYear;
   const initialYear = displayYear;
-  
+
   let targetMonth = displayMonth;
   const initialMonth = displayMonth;
 

@@ -39,7 +39,7 @@ const StyledLabel = styled.label`
 const StyledInput = styled.input<{ error: boolean }>`
   border: none;
   outline: none;
-  font-size: 16px;
+  font-size: 1rem;
   border-radius: 10px;
   padding: 16px;
   background-color: ${props => props.error ? colors.ERROR_FIELD : colors.BACKGROUND};
@@ -80,13 +80,12 @@ export const TextArea: React.FC<FieldsType> = props => (
 const StyledTextarea = styled.textarea<{ error: boolean }>`
   border: none;
   outline: none;
-  font-size: 16px;
+  font-size: 1rem;
   border-radius: 10px;
   padding: 16px;
   line-height: inherit;
   height: 50vh;
   background-color: ${props => props.error ? colors.ERROR_FIELD : colors.BACKGROUND};
-  text-shadow: 1px 1px 0 ${colors.WHITE};
   box-shadow: inset 2px 2px 5px ${colors.FIELD_SHADOW},
               inset -5px -5px 10px ${props => props.error ? colors.ERROR_FIELD_SHADOW : colors.WHITE};
   width: 100%;

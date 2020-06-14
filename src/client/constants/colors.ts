@@ -4,7 +4,7 @@ export default {
   ——————————————————————––*/
   // PRIMARY
   PRIMARY: "#00C46D",
-  PRIMARY_DISABLED: "#ace7d2",
+  PRIMARY_DISABLED: "#ACE7D2",
 
   // DANGER
   DANGER: "#C40000",
@@ -17,7 +17,8 @@ export default {
   // OTHERS
   WHITE: "#FFF",
   BLACK: "#000",
-  OBJECT_SHADOW: "#dee5ea",
+  BLUE: "#1E1EFF",
+  OBJECT_SHADOW: "#DEE5EA",
 
 
   /*———————————–———————————–

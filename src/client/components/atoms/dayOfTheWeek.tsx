@@ -2,15 +2,18 @@
 import React from "react";
 import styled from "styled-components";
 
+// constant
+import colors from "../../constants/colors";
+
 export const DayOfTheWeek: React.FC = () => (
   <StyledUl>
-    <StyledLi color={"red"}>Sun.</StyledLi>
+    <StyledLi color={colors.DANGER}>Sun.</StyledLi>
     <StyledLi>Mon.</StyledLi>
     <StyledLi>Tue.</StyledLi>
     <StyledLi>Wed.</StyledLi>
     <StyledLi>Thu.</StyledLi>
     <StyledLi>Fri.</StyledLi>
-    <StyledLi color={"blue"}>Sat.</StyledLi>
+    <StyledLi color={colors.BLUE}>Sat.</StyledLi>
   </StyledUl>
 );
 

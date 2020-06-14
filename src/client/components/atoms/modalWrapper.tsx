@@ -43,17 +43,15 @@ const StyledWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  overflow-y: auto;
 `;
 
 const StyledBackground = styled.div<{ backgroundWidth: number }>`
   background: ${colors.BACKGROUND};
   width: ${props => props.backgroundWidth}%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   padding: 30px;
   box-sizing: border-box;
   text-align: center;
   border-radius: 10px;
+  margin: 20px auto;
 `;

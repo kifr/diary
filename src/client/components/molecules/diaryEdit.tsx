@@ -173,6 +173,7 @@ export const DiaryEdit: React.FC<DiaryEditType> = () => {
           <H2>{`${month}月${date}日の日記`}</H2>
           <StyledButtonArea>
             <CircleBtn
+              key={"fa-pen"}
               className={"option-buttons"}
               iconClassName={"fas fa-pen"}
               iconColor={colors.PRIMARY}
@@ -205,6 +206,7 @@ export const DiaryEdit: React.FC<DiaryEditType> = () => {
           <H2>{`${month}月${date}日の日記`}</H2>
           <StyledButtonArea>
             <CircleBtn
+              key={"fa-book-open"}
               className={"option-buttons"}
               iconClassName={"fas fa-book-open"}
               iconColor={colors.PRIMARY}
